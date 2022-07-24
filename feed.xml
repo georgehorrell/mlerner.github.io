@@ -1,115 +1,1571 @@
----
-layout: null
-collection: posts
----
 <?xml version="1.0" encoding="utf-8"?>
-{% if page.xsl %}
-  <?xml-stylesheet type="text/xml" href="{{ '/feed.xslt.xml' | absolute_url }}"?>
-{% endif %}
-<feed xmlns="http://www.w3.org/2005/Atom" {% if site.lang %}xml:lang="{{ site.lang }}"{% endif %}>
-  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
-  <link href="{{ page.url | absolute_url }}" rel="self" type="application/atom+xml" />
-  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" {% if site.lang %}hreflang="{{ site.lang }}" {% endif %}/>
-  <updated>{{ site.time | date_to_xmlschema }}</updated>
-  <id>{{ page.url | absolute_url | xml_escape }}</id>
 
-  {% assign title = site.title | default: site.name %}
-  {% if page.collection != "posts" %}
-    {% assign collection = page.collection | capitalize %}
-    {% assign title = title | append: " | " | append: collection %}
-  {% endif %}
-  {% if page.category %}
-    {% assign category = page.category | capitalize %}
-    {% assign title = title | append: " | " | append: category %}
-  {% endif %}
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator>
+  <link href="http://www.micahlerner.com/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://www.micahlerner.com/" rel="alternate" type="text/html" />
+  <updated>2022-07-23T22:38:57-07:00</updated>
+  <id>http://www.micahlerner.com/feed.xml</id>
 
-  {% if title %}
-    <title type="html">{{ title | smartify | xml_escape }}</title>
-  {% endif %}
+  
+  
+  
 
-  {% if site.description %}
-    <subtitle>{{ site.description | xml_escape }}</subtitle>
-  {% endif %}
+  
+    <title type="html">www.micahlerner.com</title>
+  
 
-  {% if site.author %}
+  
+
+  
     <author>
-        <name>{{ site.author.name | default: site.author | xml_escape }}</name>
-      {% if site.author.email %}
-        <email>{{ site.author.email | xml_escape }}</email>
-      {% endif %}
-      {% if site.author.uri %}
-        <uri>{{ site.author.uri | xml_escape }}</uri>
-      {% endif %}
+        <name>Micah</name>
+      
+      
     </author>
-  {% endif %}
+  
 
-  {% if page.tags %}
-    {% assign posts = site.tags[page.tags] %}
-  {% else %}
-    {% assign posts = site[page.collection] %}
-  {% endif %}
-  {% if page.category %}
-    {% assign posts = posts | where: "category", page.category %}
-  {% endif %}
-  {% unless site.show_drafts %}
-    {% assign posts = posts | where_exp: "post", "post.draft != true" %}
-  {% endunless %}
-  {% assign posts = posts | sort: "date" | reverse %}
-  {% assign posts_limit = site.feed.posts_limit | default: 10 %}
-  {% for post in posts limit: posts_limit %}
-    <entry{% if post.lang %}{{" "}}xml:lang="{{ post.lang }}"{% endif %}>
-      {% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}
+  
+  
+  
+  
+  
+  
+    <entry>
+      
 
-      <title type="html">{{ post_title }}</title>
-      <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post_title }}" />
-      <published>{{ post.date | date_to_xmlschema }}</published>
-      <updated>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</updated>
-      <id>{{ post.id | absolute_url | xml_escape }}</id>
-      {% assign excerpt_only = post.feed.excerpt_only | default: site.feed.excerpt_only %}
-      {% unless excerpt_only %}
-        <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}">{{ post.content | strip_margin_content | strip | xml_escape }}</content>
-      {% endunless %}
+      <title type="html">Metastable Failures in the Wild</title>
+      <link href="http://www.micahlerner.com/2022/07/11/metastable-failures-in-the-wild.html" rel="alternate" type="text/html" title="Metastable Failures in the Wild" />
+      <published>2022-07-11T00:00:00-07:00</published>
+      <updated>2022-07-11T00:00:00-07:00</updated>
+      <id>http://www.micahlerner.com/2022/07/11/metastable-failures-in-the-wild</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/07/11/metastable-failures-in-the-wild.html">&lt;p&gt;&lt;a href=&quot;https://www.usenix.org/conference/osdi22/presentation/huang-lexiang&quot;&gt;Metastable Failures in the Wild&lt;/a&gt;&lt;/p&gt;
 
-      {% assign post_author = post.author | default: post.authors[0] | default: site.author %}
-      {% assign post_author = site.data.authors[post_author] | default: post_author %}
-      {% assign post_author_email = post_author.email | default: nil %}
-      {% assign post_author_uri = post_author.uri | default: nil %}
-      {% assign post_author_name = post_author.name | default: post_author %}
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Metastable failures&lt;/em&gt; are a class of outage that, “&lt;em&gt;feed&lt;/em&gt; and strengthen their own &lt;em&gt;failed&lt;/em&gt; condition. The main characteristic of a metastable failure is a positive feedback loop that keeps the system in a degraded/failed state”. While some failures that match this characterization are well known (like &lt;a href=&quot;https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/&quot;&gt;overload&lt;/a&gt;, &lt;a href=&quot;https://sre.google/sre-book/addressing-cascading-failures/&quot;&gt;cascading failures&lt;/a&gt;, and &lt;a href=&quot;https://devops.stackexchange.com/questions/898/how-to-avoid-retry-storms-in-distributed-services&quot;&gt;retry storms&lt;/a&gt;), the authors argue that categorizing them under a single class will facilitate work by industry practitioners and academia to address them.&lt;/p&gt;
+
+&lt;p&gt;While there are well-known mitigations to reducing types of metastable failures, these approaches don’t stop the class of failure from continuously plaguing systems and operations teams -  a fact highlighted by the paper’s dataset on severe, user-facing outages from a wide variety of cloud providers and businesses. Given the serious and complex outages that the failure class could lead to, research into systematically finding and eliminating the possibility of &lt;em&gt;metastable failures&lt;/em&gt; before they happen could have an impact across industry.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Metastable failures happen in distributed systems, which run in one of several states: &lt;em&gt;stable&lt;/em&gt;, &lt;em&gt;vulnerable&lt;/em&gt;, or &lt;em&gt;metastable&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;To understand the transitions between different system states, we can consider service behavior in the presence of growing numbers of request retries - if a system can both serve all requests successfully and scale to handle additional load, it is in a &lt;em&gt;stable&lt;/em&gt; state.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/fig1_p1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;From &lt;a href=&quot;https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf&quot;&gt;Metastable Failures in Distributed Systems&lt;/a&gt;.&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;A system in a &lt;em&gt;stable&lt;/em&gt; state can transition into a &lt;em&gt;vulnerable&lt;/em&gt; state for a wide variety of factors. One example is if a system’s organic traffic grows over time, but its reserve capacity does not - in this situation, the service transitions to a &lt;em&gt;vulnerable&lt;/em&gt; state because it can’t scale up if it becomes overloaded.&lt;/p&gt;
+
+&lt;p&gt;Once in a &lt;em&gt;vulnerable&lt;/em&gt; state, the system can transition to &lt;em&gt;metastable&lt;/em&gt; failure due to a &lt;em&gt;trigger&lt;/em&gt;. One example trigger is slowdown in the system’s dependencies - dependency slowdown impacts the ability of the service to respond in a timely manner to clients, as it must wait longer to receive required responses.&lt;/p&gt;
+
+&lt;p&gt;If a trigger’s magnitude or duration is strong enough, a system might enter a &lt;em&gt;metastable state&lt;/em&gt; and begin failing in a manner that compounds the original problem. For example, if the server takes long enough to respond (due to the previously mentioned dependency slowdown), a client might give up on the request and re-try. As more clients retry, more load is added to the system, meaning that existing requests keep getting slower (and in turn causing more client retries). This type of vicious cycle is called a &lt;em&gt;sustaining effect&lt;/em&gt; because it keeps the system in a failing state, even after the original trigger (dependency slowdown) is removed.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/fig2_p1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;From &lt;a href=&quot;https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf&quot;&gt;Metastable Failures in Distributed Systems&lt;/a&gt;.&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Oftentimes transitioning out of &lt;em&gt;metastable failure&lt;/em&gt; and into a &lt;em&gt;stable&lt;/em&gt; safe state requires action like dropping retries, or adding emergency capacity.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The &lt;em&gt;Metastable Failures in the Wild&lt;/em&gt; makes four main contributions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An analysis of metastable failures from a variety of cloud providers and businesses, compiled from publicly available incident data&lt;/li&gt;
+  &lt;li&gt;A model for representing the causes/effects of metastable failures.&lt;/li&gt;
+  &lt;li&gt;An industry perspective on metastable failure from Twitter&lt;/li&gt;
+  &lt;li&gt;Experimental testbed and results for several applications, including MongoDB replication, with induced metastable failures.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;metastable-failures-in-the-wild&quot;&gt;Metastable Failures in the Wild&lt;/h2&gt;
+
+&lt;p&gt;To understand the ocurrence of &lt;em&gt;metastable failures&lt;/em&gt;, the paper first build a dataset from publicly available data outage reporting tools and community datasets. In particular, the authors draw on public information from cloud providers (AWS, Azure, GCP), businesses (IBM, Spotify), and open source projects (Elasticsearch, Apache Cassandra).&lt;/p&gt;
+
+&lt;p&gt;The paper then evaluates this dataset for shared characteristics of the failure class, looking for:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;tell-tale signs of metastability—temporary triggers, work amplification or sustaining effects, and certain specific mitigation practices. More specifically, we look for patterns when a trigger initiates some processes that amplify the initial trigger-induced problem and sustain the degraded performance state even after the trigger is removed.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;After filtering the dataset, the authors annotate outages with information about &lt;em&gt;triggers&lt;/em&gt; (what pushed the transition from &lt;em&gt;vulnerable&lt;/em&gt; to &lt;em&gt;metastable failure&lt;/em&gt;), &lt;em&gt;sustaining effects&lt;/em&gt; (what kept the system in &lt;em&gt;metastable failure&lt;/em&gt; after the initial trigger was removed), and &lt;em&gt;mitigations&lt;/em&gt;. The paper also categorizes the impact of the incidents (measured by length of time and count of impacted services).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/table1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Many (45%) of the incidents have multiple triggers, while load spikes and engineer errors are involved in 35% and 45% of incidents respectively. Interestingly retry policy is one of the most common &lt;em&gt;sustaining effects&lt;/em&gt; (50% of the incidents).&lt;/p&gt;
+
+&lt;p&gt;Pulling one example from the dataset, Amazon EC2 and RDS are &lt;a href=&quot;https://aws.amazon.com/message/65648/&quot;&gt;the subject of one of the most severe incidents&lt;/a&gt; in the paper. A trigger for the incident was network overload that occurred while attempting to migrate traffic. When the network overload was resolved, nodes in the now restored part of the network sent a surge of requests, increasing latency in other parts of the system. To bring EBS back to a workable condition, the team had to add additional capacity, shed load, and manipulate traffic prioritization to ensure that the requests required to restore the system could complete.&lt;/p&gt;
+
+&lt;h2 id=&quot;metastable-model&quot;&gt;Metastable Model&lt;/h2&gt;
+
+&lt;p&gt;To model how a system behaves with respect to metastability, the authors introduce a mathematical framework that models capacity, load, responses to triggers, and amplification (feedback loops that impact a system’s load by changing either capacity or load).&lt;/p&gt;
+
+&lt;p&gt;This framework is used to model two types of &lt;em&gt;triggers&lt;/em&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Load-spike triggers&lt;/em&gt;: events that increase the load on the system (potentially adding client retries on top of the base load the service receive).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Capacity-decreasing triggers&lt;/em&gt;: events that reduce the system’s ability to serve traffic. For example, if a service relies on a cache whose hit rate drops.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The triggers are combined with two types of &lt;em&gt;amplification&lt;/em&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Workload amplification&lt;/em&gt;: a feedback loop which increases the system load (retries would be an example).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Capacity degradation amplification&lt;/em&gt;: a feedback loop which decreases the system load. For example, a lookaside cache-based system not being able to refill a cache in an overload situation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The authors model combinations of these triggers and amplification mechanisms in order to represent how a system behaves in different situations.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/table2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;metastability-at-twitter&quot;&gt;Metastability at Twitter&lt;/h2&gt;
+
+&lt;p&gt;The paper includes one example of metastability in a system at Twitter that relies on Garbage Collection (GC).&lt;/p&gt;
+
+&lt;p&gt;In the case study, a load test of the system serves as a &lt;em&gt;trigger&lt;/em&gt;, increasing one of the service’s internal queues. A larger queue increases memory pressure and GC, further increasing the queue length as requests start taking longer and longer - this feedback loop is an example of a &lt;em&gt;sustaining effect&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/twitterfig2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/twitterfig3.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;To solve the issue, oncallers can increase the capacity of the serving system, or change the service to provide enough overhead (such that additional load doesn’t interact with GC processes).&lt;/p&gt;
+
+&lt;h2 id=&quot;experimental-testbed-and-results&quot;&gt;Experimental Testbed and Results&lt;/h2&gt;
+
+&lt;p&gt;The paper includes a section with experimental results from triggering metastability in a selection of systems.&lt;/p&gt;
+
+&lt;p&gt;One of the experiments is related to state machine replication implemented in MongoDB. The primary goal of this experiment is to demonstrate that the duration/magnitude of a trigger (in this case, resource constriction that leads to retries) can cause a system to transition from &lt;em&gt;vulnerable&lt;/em&gt; to &lt;em&gt;metastable&lt;/em&gt; failure.&lt;/p&gt;
+
+&lt;p&gt;The experiment evaluates how temporarily restricting CPU resources for different periods of time introduces latency that leads to client timeouts and retry storms. In response to triggers of limited duration, the system doesn’t transition to &lt;em&gt;metastable state&lt;/em&gt;. This is not true for longer triggers with the same level of resource constriction, which cause client timeouts and subsequent retries (introducing a &lt;em&gt;sustaining effect&lt;/em&gt;). This experiment demonstrates that the duration of a trigger impacts whether a system transitions into a &lt;em&gt;metastable&lt;/em&gt; failure mode.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/figure5.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper also tests a look-aside cache implementation, where a drop in cache hit rate (the &lt;em&gt;trigger&lt;/em&gt;) causes a significant increase in requests to the backend service. The backend service is not able to increase its capacity, and begins timing out requests. Timed out requests do not refill the cache, meaning that the system can not recover its cache hit rate (serving as the &lt;em&gt;sustaining effect&lt;/em&gt;).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/metastable/figure6.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;There are several great things about this paper. First of all, the survey of publically available incident reporting, with annotations on the triggers, impact, mitigation, and sustaining effects is impressive - several studies of other failure classes start with a more structured (or at least semi-labeled dataset).&lt;/p&gt;
+
+&lt;p&gt;I’m also interested in seeing how this research continues to progress - in particular, I’m looking forward to seeing how future research systematically predicts, then reduces (or eliminates) metastable failures - potentially the authors will use something along the lines of &lt;a href=&quot;http://psas.scripts.mit.edu/home/stamp-workshops/&quot;&gt;MIT’s STAMP methodology&lt;/a&gt;)!&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
 
       <author>
-          <name>{{ post_author_name | default: "" | xml_escape }}</name>
-        {% if post_author_email %}
-          <email>{{ post_author_email | xml_escape }}</email>
-        {% endif %}
-        {% if post_author_uri %}
-          <uri>{{ post_author_uri | xml_escape }}</uri>
-        {% endif %}
+          <name>Micah</name>
+        
+        
       </author>
 
-      {% if post.category %}
-        <category term="{{ post.category | xml_escape }}" />
-      {% elsif post.categories %}
-        {% for category in post.categories %}
-          <category term="{{ category | xml_escape }}" />
-        {% endfor %}
-      {% endif %}
+      
+        
+      
 
-      {% for tag in post.tags %}
-        <category term="{{ tag | xml_escape }}" />
-      {% endfor %}
+      
 
-      {% if post.excerpt and post.excerpt != empty %}
-        <summary type="html">{{ post.excerpt | strip_html | normalize_whitespace | xml_escape }}</summary>
-      {% endif %}
+      
+        <summary type="html">Metastable Failures in the Wild</summary>
+      
 
-      {% assign post_image = post.image.path | default: post.image %}
-      {% if post_image %}
-        {% unless post_image contains "://" %}
-          {% assign post_image = post_image | absolute_url %}
-        {% endunless %}
-        <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{{ post_image | xml_escape }}" />
-        <media:content medium="image" url="{{ post_image | xml_escape }}" xmlns:media="http://search.yahoo.com/mrss/" />
-      {% endif %}
+      
+      
     </entry>
-  {% endfor %}
+  
+    <entry>
+      
+
+      <title type="html">Sundial: Fault-tolerant Clock Synchronization for Datacenters</title>
+      <link href="http://www.micahlerner.com/2022/07/03/sundial-fault-tolerant-clock-synchronization-for-datacenters.html" rel="alternate" type="text/html" title="Sundial: Fault-tolerant Clock Synchronization for Datacenters" />
+      <published>2022-07-03T00:00:00-07:00</published>
+      <updated>2022-07-03T00:00:00-07:00</updated>
+      <id>http://www.micahlerner.com/2022/07/03/sundial-fault-tolerant-clock-synchronization-for-datacenters</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/07/03/sundial-fault-tolerant-clock-synchronization-for-datacenters.html">&lt;p&gt;&lt;a href=&quot;https://www.usenix.org/conference/osdi20/presentation/li-yuliang&quot;&gt;Sundial: Fault-tolerant Clock Synchronization for Datacenters&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;The Sundial paper describes a system for clock synchronization, an approach to building a view of time across many machines in a data center environment. Time is critical to distributed systems, as many applications rely on an accurate time to make decisions - for example, some distributed databases use time to determine when it is safe to commit transactions. Furthermore, fast and accurate time enables new applications in data center environments, like basing congestion control algorithms on one way delay.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, building a view of time across many machines is a difficult problem. Clock synchronization, the approach described by the Sundial paper, involves reconciling many individual data points from disparate computers. Implementing systems not only need to build distributed-system-like logic for communication, but also have to handle the failure modes of clocks themselves (including measurement drift due to factors like temperature changes).&lt;/p&gt;
+
+&lt;p&gt;Other systems have tackled clock synchronization (in particular TrueTime), and the Sundial paper aims to build on them. In particular, one design choice that the paper reuses is not providing a single global measurement of time. Instead, the machines in the system maintain a time and an associated error bound, which grows and shrinks according to several factors (like how recently the node has synchronized its time with others). In other ways, Sundial differs from prior research - specifically, the system described by the paper prioritizes detection and recovery from failures. As a result, it provides more accurate and resilient time measurements, improving application performance and enabling applications that require time.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Fast and accurate time measurements are an important problem to solve for datacenter environments, for which there are several existing solutions.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/table1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Each implementation makes tradeoffs around:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Type of clocks used&lt;/em&gt;: do you use few expensive clocks or many commodity clocks?&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Overhead of clock synchronization&lt;/em&gt;: which networking layer does clock synchronization happen on? Hardware support allows lower overhead networking communication, but can require custom devices (which increases the difficulty of implementation).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Frequency of clock synchronization&lt;/em&gt;: how often do nodes in the system synchronize their clocks? Clock synchronization consumes networking resources, but the frequency of synchronization determines how much clocks drift from one another.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Which nodes communicate with one another&lt;/em&gt;: should nodes communicate in a tree or a mesh? Asynchronously or synchronously? This decision also balances networking overhead with clock error.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Deciding the &lt;em&gt;type of clocks used&lt;/em&gt; comes down to choosing between cost and clock accuracy. On one end of the spectrum, a system can have expensive and accurate clocks in a network, then connect computers to those sources of truth. Another approach is to have many commodity datacenter clocks that synchronize with each other to get a global view of time - clocks in these types of systems often use crystal oscillators which can drift for a variety of reasons, including “factors such as temperature changes, voltage changes, or aging”.&lt;/p&gt;
+
+&lt;p&gt;To limit error in time measurements, the clocks periodically sync with one another by transmitting messages on the network.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;This communication contributes to the &lt;em&gt;overhead of clock synchronization&lt;/em&gt;. Sending messages on different levels of the network incurs different overheads, and can also require specialized hardware. For example, one predecessor to Sundial (&lt;a href=&quot;https://dl.acm.org/doi/10.1145/2934872.2934885&quot;&gt;Datacenter Time Protocol&lt;/a&gt;), relies on hardware support (which could be a blocker to adoption). At the same time, Datacenter Time Protocol is able to send messages with zero overhead by making use of special hardware. In contrast, other clock synchronization implementations send messages at higher levels of the network stack, limiting reliance on custom hardware, but incurring higher overheads.&lt;/p&gt;
+
+&lt;p&gt;Another set of tradeoffs is deciding the &lt;em&gt;frequency of clock synchronization&lt;/em&gt; - more frequent messaging places a bound on how much clocks can drift from one another, increasing accuracy at the cost of networking overhead. This decision also contributes to how fast a node is able to detect failure upstream - assuming that a node fails over to using a different upstream machine after not receiving &lt;em&gt;n&lt;/em&gt; messages, longer intervals between each synchronization message will contribute to a longer time for the node to react.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure3.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;A clock synchronization implementation also needs to decide &lt;em&gt;which nodes comunicate with each other&lt;/em&gt;, and whether there is a single “primary” time that must propagate through the system. Communication can happen through several different structures, including mesh or tree topologies. Furthermore, nodes in the network can communicately synchronously or asynchrously, potentially blocking on receiving updates from upstream nodes.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure15.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The paper makes three main contributions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The design of a system capable of quickly detecting and recovering from clock synchronization failures (leading to time measurement errors).&lt;/li&gt;
+  &lt;li&gt;Implementation of the design, including details of novel algorithms associated with failure recovery.&lt;/li&gt;
+  &lt;li&gt;Evaluation of the system relative to existing clock synchronization approaches.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-does-the-system-work&quot;&gt;How does the system work?&lt;/h2&gt;
+
+&lt;p&gt;Based on a study of previous systems, Sundial establishes two design requirements: a &lt;em&gt;small sync interval&lt;/em&gt; (to limit error in time measurements), and &lt;em&gt;fast failure recovery&lt;/em&gt; (to ensure minimal interruption to clock synchronization when failure occurs).&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;small sync interval&lt;/em&gt; ensures that a machine sends out synchronization messages periodically and is able to detect when it hasn’t received communication from upstream nodes. To keep track of the interval, the design relies on a periodically incrementing counter in custom hardware (discussed in more detail in the &lt;em&gt;Sundial Hardware&lt;/em&gt; section). While implementing such a counter is possible in software, doing so was likely to consume significant CPU. Building a counter in hardware offloads this functionality to a component dedicated for the function.&lt;/p&gt;
+
+&lt;p&gt;Each node in a Sundial deployment contains a combination of this specialized hardware and software to handle several situations:  &lt;em&gt;sending synchronization messages&lt;/em&gt;, &lt;em&gt;receiving synchronization messages&lt;/em&gt;, and &lt;em&gt;responding to failures&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure6.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nodes determine how to &lt;em&gt;send and receive synchronization messages&lt;/em&gt; based on a netowrk represented via a spanning tree, and a node’s position in the tree (root or non-root) determines its behavior. Synchronization messages flow through the network from root nodes downwards, and when downstream nodes detect that upstream nodes are not sending these messages, the network reconfigures itself to exclude the failing machines.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure7.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;sundial-hardware&quot;&gt;Sundial Hardware&lt;/h3&gt;
+
+&lt;p&gt;The Sundial Hardware is active in &lt;em&gt;sending synchronization messages&lt;/em&gt;, &lt;em&gt;receiving synchronization messages&lt;/em&gt;, and &lt;em&gt;responding to failures&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;As mentioned above, synchronization messages flow through the tree from root nodes to non-root nodes. Root nodes send messages periodically, using a continuously incrementing interal counter. After the counter reaches a threshold, the root sends synchronization messages downstream.&lt;/p&gt;
+
+&lt;p&gt;When a node receives a synchronization message, it processes the incoming message (updating its clock and error), resets the timeout used to detect failure in upstream nodes, then sends synchronization messages to its own downstream nodes.&lt;/p&gt;
+
+&lt;p&gt;If a node doesn’t receive a synchronization message before several &lt;em&gt;sync intervals&lt;/em&gt; pass (as measured by the hardware counter), the hardware will trigger an interrupt to prompt failure recovery by the software component of Sundial (handling this situation is discussed in more detail in the next section).&lt;/p&gt;
+
+&lt;h3 id=&quot;sundial-software&quot;&gt;Sundial Software&lt;/h3&gt;
+
+&lt;p&gt;The Sundial software has two primary responsibilities: &lt;em&gt;handling failure recovery when it is detected by hardware&lt;/em&gt;, and &lt;em&gt;pre-calculating a backup plan&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sundial hardware triggers an interrupt to signal failure when an upstream node stops sending synchronization messages. To recover from failure, a machine follows a backup plan that is computed and distributed to nodes by a central component of Sundial, called the &lt;em&gt;Centralized Controller&lt;/em&gt;. The backup plan includes information on which node(s) to treat as the upstream and/or downstream nodes.&lt;/p&gt;
+
+&lt;p&gt;To ensure that failure recovery succeeds, the &lt;em&gt;Centralized Controller&lt;/em&gt; constructs the backup plan following several invariants:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;No-loop condition&lt;/em&gt;: nodes in a subtree must connect to nodes outside of the subtree, otherwise there is no guarantee that the backup plan will connect the subtree to the root node. If the subtree is not connected to the root node, then synchronization messages will not flow.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure8.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;No-ancestor condition&lt;/em&gt;: a node can’t use its ancestor as a backup because the downstream node won’t be connected to the tree if the ancestor fails.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Reachability condition&lt;/em&gt;: the backup plan contains a backup root in case the root fails, and the backup root must have a path to all nodes (otherwise synchronization messages won’t fully propagate).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Disjoint-failure-domain condition&lt;/em&gt;: a node’s backup can’t be impacted by the same failures as the given node, unless the given node &lt;em&gt;also&lt;/em&gt; goes down (this stops a node from being isolated).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Root failure detection&lt;/em&gt;: when the root fails, a backup root should be able to be elected (so that recovery is possible).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure9.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper points at several potential issues with a precomputed backup plan - one of which is the idea of concurrent failures that the backup plan hasn’t anticipated. In this situation, error grows large but the controller can still recover due to the &lt;em&gt;Disjoint-failure-domain condition&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure11.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;how-is-the-research-evaluated&quot;&gt;How is the research evaluated?&lt;/h2&gt;
+
+&lt;p&gt;The Sundial paper contains an evaluation on several metrics. First, the paper compares Sundial to other existing implementations of clock synchronization in both non-failure conditions and failure conditions.&lt;/p&gt;
+
+&lt;p&gt;In non-failure conditions, Sundial has the lowest error because it is able to maintain a small sync interval and synchronize clocks in the network quickly.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure18.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;In failure conditions, Sundial has fast failure recovery, resulting in the lowest error increases in abnormal conditions (as visible from the lower overall error and small sawtooth pattern in the graph below).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/figure19.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper also evaluates the implementation’s impact on applications. As mentioned at the beginning of the paper, more accurate clock synchronization confers several advantages. The paper evaluates this claim by including commit-wait latency for Spanner - when the database decides to commit a transaction, it waits until a time after the error bound. Thus, reducing the error bound allows Spanner to commit earlier, an affect visible in the latency of a load test that relies on the database.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/sundial/table2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The Sundial paper is one of several papers I’ve been reading about time and clock synchronization. In particular, one of the components of the research I enjoyed was its deep dive on the constraints and algorithm internals associated with building a backup plan - it is always intriguing to see how simple data structures represent the core of solutions to complex problems. I also enjoyed the paper’s description of where Sundial is in the design space of the problems it is trying to address. This type of in-depth discussion is often left to the reader, and it is refreshing to see it spelled out explicitly.&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">Sundial: Fault-tolerant Clock Synchronization for Datacenters</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">Data-Parallel Actors: A Programming Model for Scalable Query Serving Systems</title>
+      <link href="http://www.micahlerner.com/2022/06/04/data-parallel-actors-a-programming-model-for-scalable-query-serving-systems.html" rel="alternate" type="text/html" title="Data-Parallel Actors: A Programming Model for Scalable Query Serving Systems" />
+      <published>2022-06-04T00:00:00-07:00</published>
+      <updated>2022-06-04T00:00:00-07:00</updated>
+      <id>http://www.micahlerner.com/2022/06/04/data-parallel-actors-a-programming-model-for-scalable-query-serving-systems</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/06/04/data-parallel-actors-a-programming-model-for-scalable-query-serving-systems.html">&lt;p&gt;&lt;a href=&quot;https://www.usenix.org/system/files/nsdi22-paper-kraft.pdf&quot;&gt;Data-Parallel Actors: A Programming Model for Scalable Query Serving Systems&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;The research describes an actor-based framework for building &lt;em&gt;query-serving systems&lt;/em&gt;, a class of database that predominantly respond to read requests and frequent bulk writes. The paper cites several examples of these systems, including Druid (covered in a &lt;a href=&quot;2022/05/15/druid-a-real-time-analytical-data-store.html&quot;&gt;previous paper review&lt;/a&gt;) and &lt;a href=&quot;https://github.com/elastic/elasticsearch&quot;&gt;ElasticSearch&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The paper argues that &lt;em&gt;query-serving systems&lt;/em&gt; are a common database deployment pattern sharing many functionalities and challenges (including scaling in cloud environments and recovery in the face of failure). Rather than relying on shared implementations that enable database scaling and fault tolerance, &lt;em&gt;query-serving systems&lt;/em&gt; often reinvent the wheel. Custom implementations incur unnnecessary developer effort and require further optimizations beyond the initial implementation. For example, Druid clusters provide scaling using a database-specific implementation, but often end up overprovisioning. Sometimes &lt;em&gt;query-serving systems&lt;/em&gt; take a long time to develop their own implementation of a feature - for example, Druid’s implementation of joins, and MongoDB’s implementation of consensus.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/table2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The DPA paper aims to simplify development, scaling, and maintenace of &lt;em&gt;query-serving systems&lt;/em&gt;, using a runtime based on stateful actors. While the idea of building distributed systems on top of stateful actors is not necessarily new, implementing a database runtime targeted at a common class of databases (&lt;em&gt;query-serving systems&lt;/em&gt;) is novel.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The paper makes three main contributions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Identifying and categorizing &lt;em&gt;query-serving systems&lt;/em&gt;, a class of databases supporting “low-latency data-parallel queries and frequent bulk data updates”&lt;/li&gt;
+  &lt;li&gt;A &lt;em&gt;Data Parallel Actor (DPA)&lt;/em&gt; framework aimed at simplifying the implementation of &lt;em&gt;query-serving systems&lt;/em&gt; using stateful actors.&lt;/li&gt;
+  &lt;li&gt;Porting several &lt;em&gt;query-serving systems&lt;/em&gt; to the &lt;em&gt;Data Parallel Actor&lt;/em&gt; paradigm, then evaluating the performnace of the resulting implementations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-does-the-system-work&quot;&gt;How does the system work?&lt;/h2&gt;
+
+&lt;h3 id=&quot;actors-and-data&quot;&gt;Actors and Data&lt;/h3&gt;
+
+&lt;p&gt;Actors are a key component of the &lt;em&gt;DPA&lt;/em&gt; framework - several ideas from existing databases are reworked to fit an actor-based model, in particular &lt;em&gt;partitioning&lt;/em&gt;, &lt;em&gt;writes&lt;/em&gt;, and &lt;em&gt;reads&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Many databases use &lt;em&gt;partitioning&lt;/em&gt; to address problems related to fault tolerance, load balancing, and elasticity.  DPA adapts partitioning by assigning partitions of a dataset to an actor. Actors manage partitions using a limited set of methods (including &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serialize&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deserialize&lt;/code&gt;) that a database developer implements according to the internals of their project.&lt;/p&gt;
+
+&lt;p&gt;The paper describes several advantages to the actor-based approach - in particular, building a distributed database on top of the DPA-based actor abstraction simplifies the implementation of fault tolerance, load balancing, and elasticity that databases would otherwise build themselves (or not at all). Rather than each &lt;em&gt;query-serving system&lt;/em&gt; custom-writing these featuresets, the DPA framework handles them. In turn, the main component that developers become responsible for is implementing the Actor interface with the DPA framework.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;write-handling&quot;&gt;Write handling&lt;/h3&gt;
+
+&lt;p&gt;To handle &lt;em&gt;writes&lt;/em&gt;, a &lt;em&gt;query-serving system&lt;/em&gt; based on DPA implements an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UpdateFunction&lt;/code&gt; (accepting parameters like the table to be updated, the records to change or add, and the consistency of the update). The DPA framework then determines which actors need to be updated (and how) under the hood. Importantly, DPA supports building &lt;em&gt;query-serving systems&lt;/em&gt; with different consistency guarantees, from &lt;a href=&quot;https://www.allthingsdistributed.com/2008/12/eventually_consistent.html&quot;&gt;eventually consistent&lt;/a&gt; to &lt;a href=&quot;https://jepsen.io/consistency/models/serializable&quot;&gt;full serializability&lt;/a&gt; - depending on the consistency level chosen, the update has different behavior. This configurability is useful because consistency requirements vary by &lt;em&gt;query-serving system&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;read-handling&quot;&gt;Read handling&lt;/h3&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure3.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;To handle &lt;em&gt;reads&lt;/em&gt;, DPA uses a client layer for receiving queries. The client layer converts queries into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParallelOperators&lt;/code&gt; that can be run across many actors as needed. Example of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParallelOperators&lt;/code&gt; are &lt;em&gt;Map&lt;/em&gt; (which “applies a function to actors in parallel and materializes the transformed data.”), and &lt;em&gt;Scatter and Gather&lt;/em&gt; (a &lt;a href=&quot;https://mpitutorial.com/tutorials/mpi-scatter-gather-and-allgather/&quot;&gt;“collective”&lt;/a&gt; operation used in functionality like like joins).&lt;/p&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;p&gt;The &lt;em&gt;DPA&lt;/em&gt; paper discusses a runtime (called &lt;em&gt;Uniserve&lt;/em&gt;) for running &lt;em&gt;query-serving systems&lt;/em&gt; using an actor-based model. The runtime has four high-level components: a &lt;em&gt;query planner&lt;/em&gt;, a &lt;em&gt;client layer&lt;/em&gt;, &lt;em&gt;the server layer&lt;/em&gt;, and a &lt;em&gt;coordinator&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure4.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The &lt;em&gt;query planner&lt;/em&gt; is responsible for receiving queries from clients, and “translates them to DPA parallel operators (or update functions)” - in other words, determining which partitions and actors the query needs to access. The paper discusses how developers can (or need to) implement the query planner themselves, which seemed related to the idea of creating a general query planner (discussed in existing research like &lt;a href=&quot;http://www.vldb.org/pvldb/vol11/p1835-samwel.pdf&quot;&gt;F1&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;client layer&lt;/em&gt; communicates with the query planner, fanning out subqueries to the deeper layers of the Uniserve stack - in particular the nodes with actors and the partitions they are associated with.&lt;/p&gt;
+
+&lt;p&gt;Actors (and the partitions they are responsible for) live in the &lt;em&gt;Uniserve Server Layer&lt;/em&gt;. There are many nodes in this layer, each with several actors and their associated partitions. The nodes in this layer communicate with one another in order to execute queries (like &lt;em&gt;Scatter and Gather&lt;/em&gt; operations) and replicate data from one actor to another as needed.&lt;/p&gt;
+
+&lt;p&gt;Lastly, the allocation of actors to servers is handled by the &lt;em&gt;coordinator&lt;/em&gt;. The &lt;em&gt;coordinator&lt;/em&gt; scales the system by adding or removing servers/actors in response to demand, in addition to managing fault tolerance (by ensuring that there are multiple replicas of an actor, all of which converge to the same state through replication).&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-the-research-evaluated&quot;&gt;How is the research evaluated?&lt;/h2&gt;
+
+&lt;p&gt;In addition to establishing the paradigm of DPA, the paper also discusses how several existing databases were ported to the approach, including &lt;a href=&quot;https://solr.apache.org/&quot;&gt;Solr&lt;/a&gt;, &lt;a href=&quot;https://www.mongodb.com/&quot;&gt;MongoDB&lt;/a&gt;, and &lt;a href=&quot;https://www.micahlerner.com/2022/05/15/druid-a-real-time-analytical-data-store.html&quot;&gt;Druid&lt;/a&gt;. The implementations of these databases on DPA is significantly shorter with respect to lines of code:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DPA makes distributing these systems considerably simpler; each requires &amp;lt;1K lines of code to distribute as compared to the tens of thousands of lines in custom distribution layers (~90K in Solr, ~120K in MongoDB, and ~70K in Druid).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The paper also measures overheads associated with the DPA model by comparing native systems to the comparable system on DPA, finding that the approach adds minimal overhead.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure5.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Another key feature of DPA is its ability to generally load balance actors and partitions. To test this behavior, the system executed skewed queries that introduce “hot spots” in the cluster - the &lt;em&gt;coordinator&lt;/em&gt; component is able to dissipate “hot spots” across machines while scaling actors.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure9.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The evaluation also considered how a DPA system scaled in response to load - autoscaling while limiting load balancing and managing faults is difficult&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/dpa/figure10.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The DPA paper combines several ideas from existing research in a novel way - in particular, it draws on ideas related to deploying actor-based systems like &lt;a href=&quot;https://www.micahlerner.com/2021/06/27/ray-a-distributed-framework-for-emerging-ai-applications.html&quot;&gt;Ray&lt;/a&gt; and &lt;a href=&quot;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/Orleans-MSR-TR-2014-41.pdf&quot;&gt;Orleans&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It would be interesting to learn how the DPA design performs for other types of database deployments. For example, how does the DPA paradigm work for OLTP workloads? Are the overheads associated with the paradigm too high (and if so, can they be managed)?&lt;/p&gt;
+
+&lt;p&gt;I’m looking forward to seeing answers to these questions, along with further developments in this space - a unified framework for building &lt;em&gt;query serving systems&lt;/em&gt; would likely be useful for the many different teams working on similar problems!&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">Data-Parallel Actors: A Programming Model for Scalable Query Serving Systems</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">Druid: A Real-time Analytical Data Store</title>
+      <link href="http://www.micahlerner.com/2022/05/15/druid-a-real-time-analytical-data-store.html" rel="alternate" type="text/html" title="Druid: A Real-time Analytical Data Store" />
+      <published>2022-05-15T00:00:00-07:00</published>
+      <updated>2022-05-15T00:00:00-07:00</updated>
+      <id>http://www.micahlerner.com/2022/05/15/druid-a-real-time-analytical-data-store</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/05/15/druid-a-real-time-analytical-data-store.html">&lt;p&gt;&lt;a href=&quot;/assets/papers/druid.pdf&quot;&gt;Druid: A Real-time Analytical Data Store&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;Druid is an &lt;a href=&quot;https://druid.apache.org/&quot;&gt;open-source&lt;/a&gt; database designed for near-realtime and historical data analysis with low-latency. While originally developed by MetaMarkets, an Ad Tech company since acquired by Snap, Druid is being used for a variety of different use cases by companies like &lt;a href=&quot;https://netflixtechblog.com/how-netflix-uses-druid-for-real-time-insights-to-ensure-a-high-quality-experience-19e1e8568d06&quot;&gt;Netflix&lt;/a&gt;, &lt;a href=&quot;https://www.confluent.io/blog/scaling-apache-druid-for-real-time-cloud-analytics-at-confluent/&quot;&gt;Confluent&lt;/a&gt;, and &lt;a href=&quot;https://www.youtube.com/watch?v=ovZ9iAkQllo&quot;&gt;Lyft&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Druid’s goal of supporting near-realtime and historical access patterns makes it unique. The system’s approach opens it to a wider variety of use cases - for example, near real-time ingestion allows applications like production alerting based on logs (similar to &lt;a href=&quot;https://netflixtechblog.com/how-netflix-uses-druid-for-real-time-insights-to-ensure-a-high-quality-experience-19e1e8568d06&quot;&gt;Netflix’s use case&lt;/a&gt;) to find issues quickly, while also executing against a large history of data. In contrast, many data warehouse products are updated on a recurring “batch” basis, introducing lag between the time that metrics are logged and the time they are available for analysis.&lt;/p&gt;
+
+&lt;p&gt;Beyond covering the system’s design and implementation, the paper also discusses how reduced availability of different system components impacts users. Relatively few papers on production systems are structured in this way, and the approach was refreshing.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The paper makes several contributions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A description of the system’s architecture.&lt;/li&gt;
+  &lt;li&gt;Exploration of design decisions and an implementation.&lt;/li&gt;
+  &lt;li&gt;An evaluation of the system’s query API and performance results.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-does-the-system-work&quot;&gt;How does the system work?&lt;/h2&gt;
+
+&lt;h3 id=&quot;segments-and-data-sources&quot;&gt;Segments and data sources&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Segments&lt;/em&gt; are a key abstraction in Druid. They are an immutable (but versioned) datastructure storing a collection of individual records. Collections of &lt;em&gt;segments&lt;/em&gt; are combined into &lt;em&gt;data sources&lt;/em&gt;, Druid’s version of database tables. Each &lt;em&gt;segment&lt;/em&gt; stores all of the records that arrived during a given time period, for a given data source.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/table1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;p&gt;Druid builds &lt;em&gt;segments&lt;/em&gt; by ingesting data, then accesses the segments while responding to queries against &lt;em&gt;data sources&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Druid architecture uses four types of nodes to implement ingesting data and responding to queries: &lt;em&gt;real time nodes&lt;/em&gt;, &lt;em&gt;historical nodes&lt;/em&gt;, &lt;em&gt;broker nodes&lt;/em&gt;, and &lt;em&gt;coordinator nodes&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/figure1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Unlike relatively stateless individual nodes, a Druid deployment stores state in two data sources:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MySQL, which contains configuration and metadata, like an index of the existing &lt;em&gt;segments&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Zookeeper, which stores the current state of the system (including where multiple copies of &lt;em&gt;segments&lt;/em&gt; are distributed on the machines in the system)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;real-time-nodes&quot;&gt;Real time nodes&lt;/h4&gt;
+
+&lt;p&gt;&lt;em&gt;Real time nodes&lt;/em&gt; have two responsibilties: ingesting data from producers, and responding to requests from users for recent data.&lt;/p&gt;
+
+&lt;p&gt;Producers provide raw data (like rows from a database), or transformed data (like the output of a stream processing pipeline) to &lt;em&gt;real time nodes&lt;/em&gt; - a common producer pattern relies on &lt;a href=&quot;https://druid.apache.org/docs/latest/development/extensions-core/kafka-ingestion.html&quot;&gt;Kafka topics&lt;/a&gt;. Kafka (or other message bus approaches) help with the availability and scalability of ingestion - &lt;em&gt;real time nodes&lt;/em&gt; can store the offset that they have consumed into a stream, resetting to that offset if they crash/restart. To scale ingestion, multiple &lt;em&gt;real time nodes&lt;/em&gt; can read different subsets of the same message bus.&lt;/p&gt;
+
+&lt;p&gt;When a &lt;em&gt;real time node&lt;/em&gt; consumes records from a producer, it checks the time period and data source associated with the record, then routes the incoming record to an in-memory buffer with the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(time period, data source)&lt;/code&gt; key.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/figure2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(time period, data source)&lt;/code&gt; buffer temporarily remains on the node before being evicted - because of limited resources, nodes need to evict record buffers from memory periodically. On eviction, the in-memory buffer’s data is written to “deep” storage (like S3 or Google Cloud Storage).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/figure3.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Beyond ingestion, each &lt;em&gt;real-time node&lt;/em&gt; responds to queries accessing recent data. To respond to these requests, the nodes scan using temporary in-memory indices.&lt;/p&gt;
+
+&lt;h4 id=&quot;historical-nodes&quot;&gt;Historical nodes&lt;/h4&gt;
+
+&lt;p&gt;&lt;em&gt;Historical nodes&lt;/em&gt; read immutable &lt;em&gt;segments&lt;/em&gt; from storage, and respond to queries accessing them - &lt;em&gt;coordinator nodes&lt;/em&gt; (discussed in the next section) control which segments a &lt;em&gt;historical node&lt;/em&gt; fetches. When a &lt;em&gt;Historical node&lt;/em&gt; downloads a segment sucessfully, it announces this fact to a service discovery component (Zookeeper) of the system, allowing user queries to access the segment. Unfortunately, if Zookeeper goes offline, the system will not be able to serve new segments - &lt;em&gt;Historical nodes&lt;/em&gt; won’t be able to announce successful segment fetches, so the components of Druid responsible for querying data won’t forward queries.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/figure5.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The decision to use immutable segments simplifies the implementation of &lt;em&gt;historical nodes&lt;/em&gt;.  First, it simplifies scaling of the system - if there are many requests that cover a segment, more &lt;em&gt;historical nodes&lt;/em&gt; can store copies of the &lt;em&gt;segment&lt;/em&gt;, resulting in queries diffusing over the cluster. Second, operating on segments rather than a lower level abstraction means that the &lt;em&gt;historical nodes&lt;/em&gt; can simply wait to be told that there is a new version of data to serve, rather than needing to listen for changes to a segment itself.&lt;/p&gt;
+
+&lt;h4 id=&quot;coordinator-nodes&quot;&gt;Coordinator nodes&lt;/h4&gt;
+
+&lt;p&gt;&lt;em&gt;Coordinator nodes&lt;/em&gt; configure which segments are stored on &lt;em&gt;historical nodes&lt;/em&gt;, and for how long.&lt;/p&gt;
+
+&lt;p&gt;To make decisions, &lt;em&gt;coordinator nodes&lt;/em&gt; read data from two locations: MySQL and Zookeeper. MySQL durably stores information on the universe of segments and associated metadata about each segment type. Zookeeper stores the current state of all segments served by the system - &lt;em&gt;real time nodes&lt;/em&gt; and &lt;em&gt;historical nodes&lt;/em&gt; use it to announce changes in which segments are available. &lt;em&gt;Coordinator nodes&lt;/em&gt; also load balance segments across the system in order to limit “hot spots” that occur from many reads going to the same node.&lt;/p&gt;
+
+&lt;p&gt;The paper nodes that there are multiple running &lt;em&gt;coordinator nodes&lt;/em&gt; in a cluster, but there is only one “leader” at a time - the others are used for failover. If &lt;em&gt;coordinator nodes&lt;/em&gt; become unavailable (either because of MySQL or Zookeeper problems), &lt;em&gt;historical&lt;/em&gt; and &lt;em&gt;real time nodes&lt;/em&gt; will continue operating, but could become overloaded (due to non-operation of load balancing features). Additionally, the paper notes that this failure mode results in new data becoming unavailable.&lt;/p&gt;
+
+&lt;h4 id=&quot;broker-nodes&quot;&gt;Broker nodes&lt;/h4&gt;
+
+&lt;p&gt;Lastly, &lt;em&gt;Broker nodes&lt;/em&gt; receive requests from external clients, read state from Zookeeper, and forward requests to combinations of &lt;em&gt;historical&lt;/em&gt; and &lt;em&gt;real time nodes&lt;/em&gt; as appropriate. &lt;em&gt;Broker nodes&lt;/em&gt; can also cache segments locally to limit the number of outgoing segment requests for future queries accessing the same data.&lt;/p&gt;
+
+&lt;p&gt;If Zookeeper becomes unavailable, then &lt;em&gt;brokers&lt;/em&gt; use their “last known good state” to forward queries.&lt;/p&gt;
+
+&lt;h3 id=&quot;storage-format&quot;&gt;Storage Format&lt;/h3&gt;
+
+&lt;p&gt;As discussed previously, a key abstraction in Druid is the &lt;em&gt;segment&lt;/em&gt;, an immutable data structure used to store data. Each &lt;em&gt;segment&lt;/em&gt; is associated with a &lt;em&gt;data source&lt;/em&gt; (Druid’s conception of a traditional table), and contains data for a specific time period.&lt;/p&gt;
+
+&lt;p&gt;The data stored in segments is made up of two types: &lt;em&gt;dimensions&lt;/em&gt; and &lt;em&gt;metrics&lt;/em&gt;. &lt;em&gt;Dimensions&lt;/em&gt; are values that rows aggregated or filtered on, while &lt;em&gt;metrics&lt;/em&gt; correspond to numerical data (like counts).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/table1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Segments&lt;/em&gt; also contain a version number. If a segment is changed, the version number is incremented, and a new version of the segment is published - this can happen if delayed events come in for a previously finalized segment. &lt;em&gt;Coordinator nodes&lt;/em&gt; handle the migration to the new version of a segment by instructing &lt;em&gt;historical nodes&lt;/em&gt; to fetch the new version and drop the old version. Because of this approach, Druid is said to implement Multi-version Concurrency Control (MVCC).&lt;/p&gt;
+
+&lt;p&gt;Importantly, segments store data in columns, rather than rows - an approach known as “columnar storage”. This design is used in several other databases (like &lt;a href=&quot;https://docs.aws.amazon.com/redshift/latest/dg/c_columnar_storage_disk_mem_mgmnt.html&quot;&gt;Redshift&lt;/a&gt; and &lt;a href=&quot;https://dl.acm.org/doi/10.1145/1773912.1773922&quot;&gt;Cassandra&lt;/a&gt;) and file formats (like &lt;a href=&quot;https://parquet.apache.org/&quot;&gt;Parquet&lt;/a&gt;) because of the performance advantages it provides.&lt;/p&gt;
+
+&lt;p&gt;For example, if a query is selecting a subset of columns, the database only needs to query the subset of data for those columns. A row-based solution would scan every row, selecting out the related columns. While both scans would yield the same results, the row-based scan is (almost) guaranteed to unnecessarily access columns that aren’t needed to answer the query, nor will be in query results.&lt;/p&gt;
+
+&lt;h3 id=&quot;query-api&quot;&gt;Query API&lt;/h3&gt;
+
+&lt;p&gt;The original Druid paper describes an HTTP query API where one would specify the datasource, time range, filtering mechanism, and potential aggregations.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/query.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The query API is one area where the recent versions of Druid diverge from the paper’s description. The current version of Druid &lt;a href=&quot;https://druid.apache.org/docs/latest/querying/sql.html&quot;&gt;exposes a SQL-like API&lt;/a&gt; for writing and submitting queries. The paper also discusses how Druid doesn’t support joins, although recent work has implemented &lt;a href=&quot;https://druid.apache.org/docs/latest/querying/joins.html&quot;&gt;the idea&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-the-research-evaluated&quot;&gt;How is the research evaluated?&lt;/h2&gt;
+
+&lt;p&gt;To evaluate the system, the paper considers the performance and scale of Druid deployed at MetaMarkets.&lt;/p&gt;
+
+&lt;p&gt;As Druid was initially designed to serve low-latency queries, the paper evaluates latency performance using production traces:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Across all the various data sources, average query latency is approximately 550 milliseconds, with 90% of queries returning in less than 1 second, 95% in under 2 seconds, and 99% of queries returning in less than 10 seconds.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Ingestion latency is another focus of Druid’s design. The production system at MetaMarkets was able to ingest datasets of different shapes and sizes, with minimal latency and significant throughput.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/ingestion.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper also notes that while there is variation in ingestion latency, the problem can be solved by spending money on more resources for that component of the system (a decision that an implementer might make if especially concerned about this property).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/druid/cluster_latency.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I found the original Druid paper interesting because the design aims to tackle &lt;em&gt;both&lt;/em&gt; real-time and historical analysis use cases.&lt;/p&gt;
+
+&lt;p&gt;The system also represents a step in the lineage of systems designed with the aforementioned goals in mind - Druid was one of the first implementations of a &lt;a href=&quot;https://en.wikipedia.org/wiki/Lambda_architecture&quot;&gt;“Lambda Architecture”&lt;/a&gt;, where data is served from a combination of batch and streaming systems. Recent approaches at &lt;a href=&quot;https://www.oreilly.com/radar/questioning-the-lambda-architecture/&quot;&gt;“Kappa”&lt;/a&gt;, and “Delta” architectures seem like evolutions of what Druid originally proposed.&lt;/p&gt;
+
+&lt;p&gt;Last but not least, I enjoyed the paper because of its discussion on how the system behaves in a degraded state. While some of the details may not be as relevant given Druid’s continued evolution following the paper’s publication, it is still unique to hear how the system was developed with those concerns in mind.&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">Druid: A Real-time Analytical Data Store</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">Monarch: Google’s Planet-Scale In-Memory Time Series Database</title>
+      <link href="http://www.micahlerner.com/2022/04/24/monarch-googles-planet-scale-in-memory-time-series-database.html" rel="alternate" type="text/html" title="Monarch: Google’s Planet-Scale In-Memory Time Series Database" />
+      <published>2022-04-24T00:00:00-07:00</published>
+      <updated>2022-04-24T00:00:00-07:00</updated>
+      <id>http://www.micahlerner.com/2022/04/24/monarch-googles-planet-scale-in-memory-time-series-database</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/04/24/monarch-googles-planet-scale-in-memory-time-series-database.html">&lt;p&gt;&lt;a href=&quot;https://research.google/pubs/pub50652/&quot;&gt;Monarch: Google’s Planet-Scale In-Memory Time Series Database&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;Monarch is Google’s system for storing time-series metrics. Time series metrics are used for alerting, graphing performance, and ad-hoc diagnosis of problems in production.&lt;/p&gt;
+
+&lt;p&gt;Monarch is not the first time series database, nor is it the first optimized for storing metrics, but the system is unique for several reasons.&lt;/p&gt;
+
+&lt;p&gt;First, Monarch optimizes for availability - you wouldn’t want a metrics system to be down before, during, or after a production incident, potentially lengthening the time to detection or resolution of an outage. One example of this tradeoff in practice is Monarch’s choice to store data in (relatively) more expensive memory, rather than on persistent storage. This design choice limits dependence on external databases (increasing availability by limiting dependencies), but increases cost.&lt;/p&gt;
+
+&lt;p&gt;Second, Monarch chooses a &lt;em&gt;push-based&lt;/em&gt; approach to collecting metrics from external services. This is contrast to &lt;em&gt;pull-based&lt;/em&gt; systems like &lt;a href=&quot;https://www.vldb.org/pvldb/vol8/p1816-teller.pdf&quot;&gt;Prometheus&lt;/a&gt; and Borgmon (&lt;a href=&quot;https://sre.google/sre-book/practical-alerting/&quot;&gt;Monarch’s predecessor&lt;/a&gt;). The paper notes several challenges with a &lt;em&gt;pull-based&lt;/em&gt; approach to gathering metrics, including that the monitoring system itself needs to implement complex functionality to ensure that relevant data are being collected.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The Monarch paper makes four main contributions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An architecture for a time-series database capable of operating at global scale&lt;/li&gt;
+  &lt;li&gt;A data model and query language for accessing metrics&lt;/li&gt;
+  &lt;li&gt;A three-part implementation, covering a collection pipeline for ingesting metrics, a query interface, and a configuration system&lt;/li&gt;
+  &lt;li&gt;An analysis of the system running that scale&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-does-the-system-work&quot;&gt;How does the system work?&lt;/h2&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;p&gt;To implement these features at a worldwide scale, Monarch contains &lt;em&gt;global&lt;/em&gt; and &lt;em&gt;zone&lt;/em&gt; components.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/monarch/fig1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Global&lt;/em&gt; components handles optimal query execution, and store primary copies of global state (like configuration). In contrast, &lt;em&gt;Zone&lt;/em&gt; components are responsible for providing functionality for a subset of metrics data stored in the given area, and maintaining replicas of global state.&lt;/p&gt;
+
+&lt;p&gt;Dividing Monarch into &lt;em&gt;Global&lt;/em&gt; and &lt;em&gt;Zone&lt;/em&gt; components enables scaling and availability of the system. In the presence of availability issues with &lt;em&gt;global&lt;/em&gt; components, &lt;em&gt;zones&lt;/em&gt;  can still operate independently. &lt;em&gt;Zones&lt;/em&gt; can also operate with stale data, highlighting the consistency tradeoff that Monarch makes in order to gain availability.&lt;/p&gt;
+
+&lt;p&gt;At the bottom level of the Monarch stack are &lt;em&gt;Leaf&lt;/em&gt; nodes that store metrics data in-memory (formatted as described in the next section on the data model). &lt;em&gt;Leaves&lt;/em&gt; respond to requests from other parts of the system in order to receive new data that needs to be stored, or return data in response to a query.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-model&quot;&gt;Data Model&lt;/h3&gt;
+
+&lt;p&gt;Monarch stores data in &lt;em&gt;tables&lt;/em&gt;. &lt;em&gt;Tables&lt;/em&gt; are built from combinations of &lt;em&gt;schemas&lt;/em&gt;, which describe data stored in the table (like column names and datatypes).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/monarch/fig2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;There are two types of schemas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Target schemas&lt;/em&gt;, which “associate each time series with its source entity (or monitored entity), which is, for example, the process or the VM that generates the time series.” Importantly, target schemas can be used to decide which &lt;em&gt;zone&lt;/em&gt; to store data in (as storing data near where it is generated limits network usage).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Metric schemas&lt;/em&gt;, which store metrics metadata and other typed data (int64, boolean, double, string) in a structured format.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Schemas have two types of columns: &lt;em&gt;key columns&lt;/em&gt; and &lt;em&gt;value columns&lt;/em&gt;. The former is used to query/filter data, while the latter is used for analysis.&lt;/p&gt;
+
+&lt;h3 id=&quot;query-language&quot;&gt;Query Language&lt;/h3&gt;
+
+&lt;p&gt;The Monarch query language allows a user to fetch, filter, and process metrics data in a SQL-like language.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/monarch/fig6-7.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The example query above uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch&lt;/code&gt; to get the data, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;filter&lt;/code&gt; to include matching metrics, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join&lt;/code&gt; to combine two streams of metrics, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;group_by&lt;/code&gt; to perform an aggregation on the metrics:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;[These] operations … are a subset of the available operations, which also include the ability to choose the top n time series according to a value expression, aggregate values across time as well as across different time series, remap schemas and modify key and value columns, union input tables, and compute time series values with arbitrary expressions such as extracting percentiles from distribution values.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;metric-collection&quot;&gt;Metric Collection&lt;/h3&gt;
+
+&lt;p&gt;External services push metrics to leaf nodes by using “routers”, of which there are two types:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Ingestion Routers&lt;/em&gt; receive requests at the global level, and determine which &lt;em&gt;zone&lt;/em&gt; or &lt;em&gt;zones&lt;/em&gt; the incoming data needs to be stored in. Metrics are routed for storage in a &lt;em&gt;zone&lt;/em&gt; based on several factors, like the origin of the data.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Leaf Routers&lt;/em&gt; receive requests from &lt;em&gt;Ingestion Routers&lt;/em&gt; and handle communication with the &lt;em&gt;leaves&lt;/em&gt; in a zone.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Metrics are assigned to a destination set of leafs within a zone using a component called the &lt;em&gt;Range Assigner&lt;/em&gt;. The &lt;em&gt;Range Assigner&lt;/em&gt; handles load balancing metrics data across &lt;em&gt;leaves&lt;/em&gt; in order to ensure balanced usage of storage and other resources.&lt;/p&gt;
+
+&lt;h3 id=&quot;query-execution&quot;&gt;Query Execution&lt;/h3&gt;
+
+&lt;p&gt;To respond to queries, Monarch implements two main components: &lt;em&gt;Mixers&lt;/em&gt; and &lt;em&gt;Index Servers&lt;/em&gt;. Copies of these components run at both the &lt;em&gt;Global&lt;/em&gt; and &lt;em&gt;Zone&lt;/em&gt; level.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Mixers&lt;/em&gt; receive queries, and issue requests to the different components of the Monarch stack, and return the results. &lt;em&gt;Root Mixers&lt;/em&gt; run in the &lt;em&gt;global&lt;/em&gt; component of Monarch, while &lt;em&gt;Zone Mixers&lt;/em&gt; run in each zone. When &lt;em&gt;Root Mixers&lt;/em&gt; receive a query, they attempt to break it down into subqueries that can be issued independently to each &lt;em&gt;zone&lt;/em&gt;. When a &lt;em&gt;Zone Mixer&lt;/em&gt; receives a request, it performs a similar function, fanning out to &lt;em&gt;leaves&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In order to determine which zones or leaves to send queries to, the &lt;em&gt;Mixer&lt;/em&gt; communicates with an &lt;em&gt;Index Server&lt;/em&gt;. Like &lt;em&gt;Mixers&lt;/em&gt;, &lt;em&gt;Index Servers&lt;/em&gt; run at the &lt;em&gt;global&lt;/em&gt; and &lt;em&gt;zone&lt;/em&gt; level - &lt;em&gt;Root Index Servers&lt;/em&gt; store which zone data can be found in, while &lt;em&gt;Zone Index Servers&lt;/em&gt; store which leaves data can be found on.&lt;/p&gt;
+
+&lt;p&gt;Monarch implements several strategies to improve the reliability of query execution. One example is &lt;em&gt;Zone Pruning&lt;/em&gt;, where the global Monarch query executor will stop sending requests to a zone if it is unhealthy (detected by network latency to the given zone). Another example strategy for improving reliability is &lt;em&gt;hedged reads&lt;/em&gt;. For redundancy, Monarch stores multiple copies of a metric in a zone. As a result, the &lt;em&gt;Zone Mixer&lt;/em&gt; can issue multiple reads to different copies, returning when it has an acceptable result from one replica.&lt;/p&gt;
+
+&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;To configure Monarch, users interact with a global component that stores data in &lt;a href=&quot;https://research.google/pubs/pub39966/&quot;&gt;Spanner&lt;/a&gt;. This configuration is then replicated to each &lt;em&gt;zone&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Configuration controls the schemas discussed above, as well as &lt;em&gt;standing queries&lt;/em&gt; that run periodically in the background. &lt;em&gt;Standing queries&lt;/em&gt; are often used for implementing alerting based on executions at regular intervals. The paper notes that predominantly all queries in the system are of this type.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-the-research-evaluated&quot;&gt;How is the research evaluated?&lt;/h2&gt;
+
+&lt;p&gt;The paper evalutes several parts of the system, including its scale and query performance.&lt;/p&gt;
+
+&lt;p&gt;Monarch’s scale is measured by the number of time series it stores, the memory they consume, and the queries per second:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;[Monarch] has sustained fast growth since its inception and is still growing rapidly…As of July 2019, Monarch stored nearly 950 billion time series, consuming around 750TB memory with a highly-optimized data structure.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Notably, “Monarch’s internal deployment ingested around &lt;em&gt;2.2 terabytes of data per second&lt;/em&gt; in July 2019.”&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/monarch/scale.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;When evaluating query performance, the paper notes that 95% of queries are &lt;em&gt;standing queries&lt;/em&gt;, configured in advance by users. Standing queries are evaluated in parallel at the &lt;em&gt;zone&lt;/em&gt; level, enabling significant amounts of data to be filtered out of the query before being returned in a response.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The Monarch paper is a unique example of a metrics database running at global scale. Along the way, the paper includes an interesting discussion of the tradeoffs it makes to increase availability at the cost of consistency.&lt;/p&gt;
+
+&lt;p&gt;Time-series databases, including those designed explicitly for metrics, are an active area of research, and I’m looking forward to seeing the development of open-source approaches targeted for similar scale, like &lt;a href=&quot;https://thanos.io/tip/thanos/design.md/&quot;&gt;Thanos&lt;/a&gt; and &lt;a href=&quot;https://m3db.io/&quot;&gt;M3&lt;/a&gt;!&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">Monarch: Google’s Planet-Scale In-Memory Time Series Database</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">The Ties that un-Bind: Decoupling IP from web services and sockets for robust addressing agility at CDN-scale</title>
+      <link href="http://www.micahlerner.com/2022/01/13/the-ties-that-un-bind-decoupling-ip-from-web-services-and-sockets-for-robust-addressing-agility-at-cdn-scale.html" rel="alternate" type="text/html" title="The Ties that un-Bind: Decoupling IP from web services and sockets for robust addressing agility at CDN-scale" />
+      <published>2022-01-13T00:00:00-08:00</published>
+      <updated>2022-01-13T00:00:00-08:00</updated>
+      <id>http://www.micahlerner.com/2022/01/13/the-ties-that-un-bind-decoupling-ip-from-web-services-and-sockets-for-robust-addressing-agility-at-cdn-scale</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/01/13/the-ties-that-un-bind-decoupling-ip-from-web-services-and-sockets-for-robust-addressing-agility-at-cdn-scale.html">&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/10.1145/3452296.3472922&quot;&gt;The Ties that un-Bind: Decoupling IP from web services and sockets for robust addressing agility at CDN-scale&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-the-research&quot;&gt;What is the research?&lt;/h2&gt;
+
+&lt;p&gt;The research in  &lt;em&gt;The Ties that un-Bind: Decoupling IP from web services and sockets for robust addressing agility at CDN-scale&lt;/em&gt; describes CloudFlare’s work to decouple networking concepts (hostnames and sockets) from IP addresses.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig1.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;By decoupling hostnames and sockets from addresses, CloudFlare’s infrastructure can quickly change the machines that serve traffic for a given host, as well as the services running on each host - the authors call this approach &lt;em&gt;addressing agility&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-motivations&quot;&gt;What are the paper’s motivations?&lt;/h2&gt;
+
+&lt;p&gt;The paper notes &lt;em&gt;reducing IP address use&lt;/em&gt; as the initial motivation for decoupling IP addresses from hostnames. The authors argue that CDNs don’t necessarily need large numbers of IP addresses to operate - this is in contrast with the fact that, “large CDNs have acquired a massive number of IP addresses: At the time of this writing, Cloudflare has 1.7M IPv4 addresses, Akamai has 12M, and Amazon AWS has over 51M!”&lt;/p&gt;
+
+&lt;p&gt;Traditionally, many CDNs use large numbers of IPs because their architecture (shown in the figure below) places entry and exit points on the public internet - entry points receive requests from clients, while exit points make requests to origin servers on cache miss. For these machines to be reachable, they need public IP addresses.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig2.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Other factors can increase a CDN’s IP address usage. CDNs may bind specific IPs to hostnames, creating a relationship between the number of hostnames served by the CDN and the number of addresses the CDN requires. Furthermore, CDN servers normally have an upper bound on networking sockets, so increased client usage also translates into more machines (and associated IP addresses).&lt;/p&gt;
+
+&lt;h2 id=&quot;how-does-it-work&quot;&gt;How does it work?&lt;/h2&gt;
+
+&lt;p&gt;The paper focuses on two types of bindings:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Hostname-to-address&lt;/em&gt; bindings control how hostnames (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.micahlerner.com&lt;/code&gt;) map to IP addresses/machines that can serve requests&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Address-to-socket&lt;/em&gt; bindings control how services running on machines service client requests.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;First, the paper describes how CloudFlare can quickly and dynamically update &lt;em&gt;hostname-to-address&lt;/em&gt; bindings by changing configurations called &lt;em&gt;policies&lt;/em&gt; - DNS servers ingest &lt;em&gt;policies&lt;/em&gt; and use them to decide which IP addresses to return for a given hostname.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig3.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;One example policy allows hostnames to map to IP addresses randomly chosen from a set of candidates (called a &lt;em&gt;pool&lt;/em&gt;). Using &lt;em&gt;policies&lt;/em&gt; instead of fixed mappings from hostnames to IP addresses is in contrast with other deployments, where changing &lt;em&gt;hostname-to-IP address&lt;/em&gt; mappings is both operationally complex and error-prone.&lt;/p&gt;
+
+&lt;p&gt;The second major change to IP addressing decouples &lt;em&gt;address-to-socket&lt;/em&gt; bindings.&lt;/p&gt;
+
+&lt;p&gt;Normally a service receives traffic on a fixed set of ports - this approach has several downsides, including that each socket has overhead (meaning a fixed number of services can run on each machine) and it isn’t possible to run two services with overlapping ports on the same machine without complications (as they can’t re-use the same port).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig4.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;To addresses these challenges, CloudFlare’s system introduces &lt;em&gt;programmable socket lookup&lt;/em&gt;, using BPF (as part of the implementation, the authors built &lt;a href=&quot;https://lwn.net/Articles/819618/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sk_lookup&lt;/code&gt;&lt;/a&gt;). This approach routes traffic inside of the kernel based on rules. An example rule could route client traffic to different instances of the same service running side-by-side, with a separate socket for every instance.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig5.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;why-does-the-research-matter&quot;&gt;Why does the research matter?&lt;/h2&gt;
+
+&lt;p&gt;The paper discusses a number of performance and security benefits that &lt;em&gt;addressing agility&lt;/em&gt; provides - importantly, these benefits are available with no discernible change to other important system metrics!&lt;/p&gt;
+
+&lt;p&gt;First, decoupling &lt;em&gt;hostname-to-address&lt;/em&gt; and &lt;em&gt;address-to-socket&lt;/em&gt; bindings allows the CloudFlare CDN to operate with fewer IPs. Addresses no longer need to be reserved for use by a specific host name and machines can now have significantly more sockets. Fewer IP addresses impacts cost and lowers barrier to entry - the paper notes that the IP space owned by the major cloud providers is worth north of 500 million USD (if not more).&lt;/p&gt;
+
+&lt;p&gt;The IP addresses that CloudFlare does continue to use are also become easier to manage. Dynamically allocating IP addresses to hostnames turns the operational task of taking machines (and the associated addresses) offline into a matter of removing addresses from the pool provided to clients.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, the randomization approach described (where IP addressess from a pool are returned in response to DNS queries) by the paper results in better load balancing.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ties/fig7.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;While the paper discusses the scalability benefits &lt;em&gt;addressing agility&lt;/em&gt; provides, it also discusses other implications beyond limiting address use - as an example, the approach can help with Denial of Service attacks.&lt;/p&gt;
+
+&lt;p&gt;If a specific address is under attack, the traffic to that address can be blackholed. If a hostname is under attack, the traffic to that hostname will be distributed evenly across machines in the address pool.&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">The Ties that un-Bind: Decoupling IP from web services and sockets for robust addressing agility at CDN-scale</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">Shard Manager: A Generic Shard Management Framework for Geo-distributed Applications</title>
+      <link href="http://www.micahlerner.com/2022/01/08/shard-manager-a-generic-shard-management-framework-for-geo-distributed-applications.html" rel="alternate" type="text/html" title="Shard Manager: A Generic Shard Management Framework for Geo-distributed Applications" />
+      <published>2022-01-08T00:00:00-08:00</published>
+      <updated>2022-01-08T00:00:00-08:00</updated>
+      <id>http://www.micahlerner.com/2022/01/08/shard-manager-a-generic-shard-management-framework-for-geo-distributed-applications</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2022/01/08/shard-manager-a-generic-shard-management-framework-for-geo-distributed-applications.html">&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/10.1145/3477132.3483546&quot;&gt;Shard Manager: A Generic Shard Management Framework for Geo-distributed Applications&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This week’s paper is &lt;em&gt;Shard Manager: A Generic Shard Management Framework for Geo-distributed Applications&lt;/em&gt;. The research describes a framework developed by Facebook for running &lt;em&gt;sharded applications&lt;/em&gt; at scale.&lt;/p&gt;
+
+&lt;p&gt;Application sharding assigns subsets of requests to instances of an application, allowing tasks to specialize - a group of tasks specialized for a subset of requests is called a &lt;em&gt;shard&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This approach is particularly useful when tasks fetch state or other metadata. As an example, a speech recognition application may load machine learning models to process languages. Assigning requests for different languages to different shards means that an application’s tasks don’t need to download every model (which would be time and bandwidth-intensive).&lt;/p&gt;
+
+&lt;p&gt;The Shard Manager paper not only discusses the technical aspects of running a sharding system at scale, but also includes data on usage and adoption inside Facebook. The paper’s information about which features were critical for users inside Facebook could help future efforts prioritize.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The Shard Manager paper makes five main contributions: analysis of sharding usage at Facebook, design and implementation of the sharding system, a domain-specific language for defining sharding constraints, a constraint solver to place shards inside Facebook’s data centers, analysis of sharding usage at Facebook, and an evaluation of the system in production.&lt;/p&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;The paper notes three main motivations for implementing Shard Manager: &lt;em&gt;increasing availability&lt;/em&gt;, &lt;em&gt;supporting geo-distributed applications&lt;/em&gt;, and &lt;em&gt;improved load balancing&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;To &lt;em&gt;increase availability&lt;/em&gt;, Shard Manager aims to smoothly handle planned data center maintenance - if a container stops while processing user requests, those requests will fail, impacting the availability of the application. For the vast majority of containers, Facebook’s infrastructure knows in advance that the container is shutting down. Shard Manager aims to smoothly handle these shutdown events by coordinating with the container infrastructure, ensuring that to-be-shutdown containers stop receiving requests, and that requests that do make it to a shutting down container are forwarded to another active instance.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/planned.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The second major motivator for Shard Manager is enabling &lt;em&gt;geo-distributed applications&lt;/em&gt; (an approach to independently deploying and scaling application shards). Before Shard Manager, services were primarily configured with &lt;em&gt;regional deployments&lt;/em&gt; - to operate at Facebook scale, applications need to run in groups of datacenters called &lt;em&gt;regions&lt;/em&gt;, with similar configurations in each region. For a sharded application, this meant reserving enough resources to serve every shard in every region, even if the shards weren’t needed - this constraint led to wasted data center resources. Furthermore, &lt;em&gt;regional deployments&lt;/em&gt; were unwieldy in the event of data center or region maintenance, as other regions might not have the spare capacity to store additional copies of every shard.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/geo-dist.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Improved load balancing&lt;/em&gt; is the third main motivation for Shard Manager. &lt;em&gt;Geo-distributed&lt;/em&gt; applications can flexibly add and shift shards independently, simplifying the process of shifting load - rather than needing to make a copy of every shard, the system can add or move specific shards. At the same time, deciding when and how to place shards is a difficult optimization problem that Shard Manager needed to address.&lt;/p&gt;
+
+&lt;h2 id=&quot;design&quot;&gt;Design&lt;/h2&gt;
+
+&lt;h3 id=&quot;the-sharding-abstraction&quot;&gt;The Sharding Abstraction&lt;/h3&gt;
+
+&lt;p&gt;A critical piece of a sharding framework is assigning requests to shards. Shard Manager uses client-provided keys, called &lt;em&gt;app-keys&lt;/em&gt;, to perform this mapping - continuing with the language server example, requests for English are sent to X shard, while requests for German and Mandarin might be sent to Y and Z shards.&lt;/p&gt;
+
+&lt;p&gt;The paper also discusses another approach, called &lt;em&gt;UUID-keys&lt;/em&gt;, that map requests to shards based on &lt;strong&gt;hashes&lt;/strong&gt; of keys provided by clients.&lt;/p&gt;
+
+&lt;p&gt;There are pros and cons to using &lt;em&gt;app-keys&lt;/em&gt; versus &lt;em&gt;UUID-keys&lt;/em&gt;, mostly based around data-locality - in the context of shard manager, data-locality means that similar data, potentially from related users or regions of the world, is placed on the same or nearby shards. The paper argues that &lt;em&gt;app-keys&lt;/em&gt; provide data-locality, while &lt;em&gt;UUID-keys&lt;/em&gt; do not.&lt;/p&gt;
+
+&lt;p&gt;Data locality would enable features like sequentially scanning multiple shards when performing a query. At the same-time, data locality could increase the potential for hot-spots, where reads of similar data all go to the same shard. Previous approaches to sharding frameworks, like Slicer, mention adding support for an &lt;em&gt;app-key&lt;/em&gt; like approach to preserve data locality, but mention that, “many Google applications are already structured around single-key operations rather than scans, encouraged by the behavior of existing storage systems.”&lt;/p&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;p&gt;There are three main components of the Shard Manager architecture: &lt;em&gt;application clients/servers&lt;/em&gt;, a &lt;em&gt;control plane&lt;/em&gt;, and the &lt;em&gt;Cluster Manager&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/arch.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Application servers&lt;/em&gt; are the actual binaries that operate shards and receive requests from clients. Each server has a library that allows it to manage shard state (like reporting server health), register/deregister the shard from receiving requests, and hook into shard management events. When a shard performs management operations, it writes state to Zookeeper, a persistent data store.&lt;/p&gt;
+
+&lt;p&gt;To call an &lt;em&gt;application server&lt;/em&gt;, an &lt;em&gt;application client&lt;/em&gt; uses a library (called a &lt;em&gt;Service Router&lt;/em&gt;). The client’s &lt;em&gt;Service Router&lt;/em&gt; routes requests based on an &lt;em&gt;app-key&lt;/em&gt; (which defines the mapping from request to shard), selecting an available shard based on state the library consumes from a service discovery system. The &lt;em&gt;Service Router&lt;/em&gt; periodically polls in the background to receive updates as shards are added, removed, and scaled.&lt;/p&gt;
+
+&lt;p&gt;The control plane of Shard Manager has three components:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Orchestrator&lt;/em&gt;: an intermediary component that receives health and load information from application servers. It shares this data with other members of the control plane (like the components that schedule and scale shards), and propagates it to the &lt;em&gt;Service Discovery System&lt;/em&gt; so that application clients have an updated view of the system.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Allocator&lt;/em&gt;: which decides where to put shards and how many to run.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;TaskController&lt;/em&gt;: commmunicates with the &lt;em&gt;Cluster Manager&lt;/em&gt; to request more resources (when scaling shards up) or to receive system events, like pending maintenance (which the &lt;em&gt;Task Controller&lt;/em&gt; uses to shutdown shards gracefully). The &lt;em&gt;TaskController&lt;/em&gt; propagates this information to the &lt;em&gt;Orchestrator&lt;/em&gt; so that it can fulfill the job of shutting down application servers and shards gracefully.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lower in the infrastructure stack is the &lt;em&gt;Cluster Manager&lt;/em&gt;, which communicates with the &lt;em&gt;TaskController&lt;/em&gt; above to ensure that planned events, like “upcoming hardware maintenance events, kernel updates, and container starts/stops/moves” are handled gracefully, increasing application availability.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;The paper discusses how Shard Manager features aim to &lt;em&gt;increase application availability&lt;/em&gt; and &lt;em&gt;supporting geo-distributed applications&lt;/em&gt;, while &lt;em&gt;scaling the system&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;maximize-application-availability&quot;&gt;Maximize Application Availability&lt;/h3&gt;
+
+&lt;p&gt;Shard Manager implements two main techniques to increase application availability: &lt;em&gt;coordinating container shutdown with the Cluster Manager&lt;/em&gt;, and &lt;em&gt;migrating shard traffic&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Coordinating container shutdown&lt;/em&gt; is critical to increasing availability because it ensures requests are not sent to a container that might shutdown while responding. Shard Manager must also ensure that planned maintenance events don’t take too much capacity offline at once (which would leave the application in a state where it is unable to respond to all incoming requests). To prevent both of these situations, Shard Manager’s &lt;em&gt;TaskController&lt;/em&gt; communicates with the &lt;em&gt;Cluster Manager&lt;/em&gt;, removing imminently decommissioning shards from service discovery and launching new shards as others prepare to go offline. If it is not possible to shift shards in anticipation of maintenance, the the &lt;em&gt;Task Controller&lt;/em&gt; can warn the &lt;em&gt;Cluster Manager&lt;/em&gt; that the proposed operations would put an application in an unsafe state.&lt;/p&gt;
+
+&lt;p&gt;Shard Manager also supports &lt;em&gt;migrating shard traffic&lt;/em&gt; by implementing a graceful handover procedure. This process forwards in-progress requests from the old to new shard, ensuring that as few as possible are dropped on the floor. The system’s traffic migration also aims to handoff any new requests from application clients, who may continue to send requests to the old shard - the service discovery system is eventually consistent, so clients may temporarily use out-of-date routing state.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/graceful.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;shard-placement-and-load-balancing&quot;&gt;Shard Placement and Load Balancing&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Geo-distributed applications&lt;/em&gt; allow shards to be deployed independently to Facebook’s infrastructure around the world. While the technique provides several benefits, like independent scaling of individual shards, it also poses its own challenges - choosing how to place shards and when to move them is a difficult optimization problem. To solve the optimization problems associated with placement and load balancing, Shard Manager uses a &lt;em&gt;constraint solver&lt;/em&gt;, configurable with a dedicated language for expressing &lt;em&gt;constraints&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Shard Manager originally used a heuristic-based implementation to make load balancing decisions, which proved both complicated and difficult to scale. As a result, the system migrated to a constraint solver.&lt;/p&gt;
+
+&lt;p&gt;The inputs to the solver are &lt;em&gt;constraints&lt;/em&gt; and &lt;em&gt;goals&lt;/em&gt; - example constraints are system stability or server capacity, while example goals are load balancing across regions (to increase resource utilization) or spreading replicas across multiple data centers (to increase availability in the event of a problem with a specific data center).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/dsl.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;An application configures its placement and load balancing using a domain-specific language that translates into a form that a constraint solver can use. Even though Facebook has a high-powered constraint solver for data center problems, Shard Manager made further optimizations to scale for its the high request rate.&lt;/p&gt;
+
+&lt;h3 id=&quot;scaling-shard-manager&quot;&gt;Scaling Shard Manager&lt;/h3&gt;
+
+&lt;p&gt;To scale Shard Manager, the system introduced two new concepts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Partitions&lt;/em&gt;: Each application is divided into many partitions, “where each partition typically comprises thousands of servers and hundreds of thousands of shard replicas.”&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;mini-Shard Managers (mini-SM)&lt;/em&gt;, which are essentially copies of an individual shard manager &lt;em&gt;control plane&lt;/em&gt; (mentioned in a previous section). Each &lt;em&gt;mini-SM&lt;/em&gt; handles a subset of servers and shards.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/scaled.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The scale-out version of Shard Manager also adds several new components including a &lt;em&gt;frontend&lt;/em&gt; that serves as a balancer for communication with external systems (like the &lt;em&gt;Cluster Manager&lt;/em&gt; and tooling), &lt;em&gt;Application Managers&lt;/em&gt; that handle coordination of an application’s partitions over multiple mini-SMs, and a &lt;em&gt;partition registry&lt;/em&gt; that &lt;em&gt;Application Managers&lt;/em&gt; communicate with to get assignments of application partitions to mini-SMs.&lt;/p&gt;
+
+&lt;h2 id=&quot;analysis-of-sharded-applications&quot;&gt;Analysis of Sharded Applications&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Shard Manager&lt;/em&gt; aims to provide support for as many sharded applications inside Facebook as possible, and provides data points what was critical to driving adoption. The paper argues for the importance of features in two areas that align with project’s motivation: &lt;em&gt;increasing availability&lt;/em&gt; and &lt;em&gt;geo-distributed deployments&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Many applications that migrated to Shard Manager take advantage of its &lt;em&gt;availability&lt;/em&gt; features, in particular around handling planned events - “70% of SM applications choose to gracefully drain shards before a container restart.”&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/drains.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper also notes similarly high-adoption of &lt;em&gt;geo-distributed applications&lt;/em&gt; - 67% of sharded applications using Shard Manager use &lt;em&gt;geo-distributed deployments&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/geo-dist-adopt.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;p&gt;The paper evaluates Shard Manager using three criteria: whether the system succeeds at scale, whether it is able to achieve the original goals of increasing application availability and supporting geo-distributed applications, and whether Shard Manager can adequately solving the optimization problems to load-balance.&lt;/p&gt;
+
+&lt;p&gt;To evaluate scale, Shard Manager shows the number of applications, shards, and mini-SMs, demonstrating that the architecture is able to scale out as needed:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In total, SM manages hundreds of applications’ nearly 100M shards hosted on over one million servers, and those applications process billions of requests per second. SM gracefully handles millions of machine and network maintenance events per month.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/itworks.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;To evaluate availability, Shard Manager shows that applications using graceful migration show fewer spikes of failed requests relative to those that use no graceful migration strategy. The paper also shows how shard upgrades do not cause an increase in client error rate.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/spikes.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/migration.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;To evaluate load balancing, the paper shows migrating shards to reduce network latency and load balancing over a changing environment and request rate.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/lb.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lastly, the paper shows how the improved constraint solver is able to solve constraints at a much faster rate than the baseline solver - in fact, the original baseline solver isn’t able to complete.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/shard-manager/constraints.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The &lt;em&gt;Shard Manager&lt;/em&gt; paper details an impressive at scale production system, while sharing data points that will be useful to future implementers of sharding frameworks. I particuarly enjoyed how the paper discussed adoption and internal usecases when prioritizing development - I’ve seen this theme in a number of Facebook research papers, including Delos (which I previously covered &lt;a href=&quot;/2021/11/23/log-structured-protocols-in-delos.html&quot;&gt;here&lt;/a&gt;) and &lt;a href=&quot;https://www.usenix.org/conference/fast21/presentation/dong&quot;&gt;RocksDB&lt;/a&gt;. I’m also looking forward to future work from folks interested in an open source sharding framework, like the one &lt;a href=&quot;https://rakyll.org/shardz/&quot;&gt;@rakyll outlined&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;As always, I appreciated feedback and paper suggestions on &lt;a href=&quot;https://twitter.com/micahlerner&quot;&gt;Twitter&lt;/a&gt;. Until next time!&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">Shard Manager: A Generic Shard Management Framework for Geo-distributed Applications</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">CS Conferences in 2022</title>
+      <link href="http://www.micahlerner.com/2021/12/30/conferences-2022.html" rel="alternate" type="text/html" title="CS Conferences in 2022" />
+      <published>2021-12-30T00:00:00-08:00</published>
+      <updated>2021-12-30T00:00:00-08:00</updated>
+      <id>http://www.micahlerner.com/2021/12/30/conferences-2022</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2021/12/30/conferences-2022.html">&lt;p&gt;With a few days left in 2021, I found some time to put together a preliminary list of conferences on my “watch list” for next year. It doesn’t cover everything and I would love suggestions via email (email address is my name at gmail.com) or &lt;a href=&quot;https://twitter.com/micahlerner&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’ve added a few new conferences to the list &lt;a href=&quot;/2021/08/14/systems-conferences-2021.html&quot;&gt;from 2021&lt;/a&gt;. The new conferences are mostly related to machine learning, programming languages, and cryptography - I want to branch out and read more papers not from “my area” of computer science.&lt;/p&gt;
+
+&lt;p&gt;I also certainly won’t be able to read every paper from the conferences below, but I will try to keep with a regular (~weekly) posting schedule like the one I had in 2021!&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Start Date&lt;/th&gt;
+      &lt;th&gt;Conference&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jan 9&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://cidrdb.org/cidr2022/index.html&quot;&gt;CIDR (Conference on Innovative Data Systems Research)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jan 16&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://popl22.sigplan.org/&quot;&gt;POPL (Principles of Programming Languages)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Feb 1&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/enigma2022&quot;&gt;Enigma&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Feb 14&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://fc22.ifca.ai/&quot;&gt;Financial Cryptography and Data Security&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Feb 27&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.ndss-symposium.org/ndss2022/&quot;&gt;NDSS (Network and Distributed System Security)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Feb 28&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://asplos-conference.org/2022/&quot;&gt;ASPLOS (Architectural Support for Programming Languages and Operating Systems)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mar 14&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/fast22&quot;&gt;FAST (File and Storage Technologies)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mar 14&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/srecon22americas&quot;&gt;SRECon Americas&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apr 4&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/nsdi22&quot;&gt;NSDI (Networked Systems Design and Implementation)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apr 5&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://2022.eurosys.org/&quot;&gt;EuroSys&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apr 11&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mlsys.org/Conferences/2022&quot;&gt;MLSys&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apr 24&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www2022.thewebconf.org/&quot;&gt;WWW (World Wide Web Conference)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 1&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://hydraconf.com/&quot;&gt;Hydra&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 12&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://2022.sigmod.org/&quot;&gt;SIGMOD/PODS&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 13&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.systor.org/2022/&quot;&gt;SYSTOR (Systems and Storage)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 24&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.sigmobile.org/mobisys/2022/&quot;&gt;MobiSys (Mobile Systems)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 27&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://www.hpdc.org/2022/&quot;&gt;HPDC (High-Performance Parallel and Distributed Computing)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;June 27&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://2022.debs.org/index.html&quot;&gt;DEBS (Distributed and Event-based Systems)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 10&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://icdcs2022.icdcs.org/&quot;&gt;ICDCS (High-Performance Parallel and Distributed Computing)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 11&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/osdi22&quot;&gt;OSDI (Operating Systems Design and Implementation)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;July 11&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.usenix.org/conference/atc22&quot;&gt;USENIX ATC (Annual Technical Conference)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Aug 14&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://kdd.org/kdd2022/&quot;&gt;KDD (Knowledge Discovery and Datamining)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sep 5&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://vldb.org/2022/&quot;&gt;VLDB (Very Large Databases)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Oct 9&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://www.hpts.ws/index.html&quot;&gt;HPTS (High Performance Transaction Systems)&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nov 14&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://2022.splashcon.org/&quot;&gt;SPLASH&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.hotstorage.org/2021/&quot;&gt;HotStorage&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">With a few days left in 2021, I found some time to put together a preliminary list of conferences on my “watch list” for next year. It doesn’t cover everything and I would love suggestions via email (email address is my name at gmail.com) or Twitter.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling</title>
+      <link href="http://www.micahlerner.com/2021/12/28/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling.html" rel="alternate" type="text/html" title="ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling" />
+      <published>2021-12-28T00:00:00-08:00</published>
+      <updated>2021-12-28T00:00:00-08:00</updated>
+      <id>http://www.micahlerner.com/2021/12/28/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2021/12/28/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling.html">&lt;p&gt;&lt;a href=&quot;https://storage.googleapis.com/pub-tools-public-publication-data/pdf/0ee589331b9bf270b13d40ba09453cde14006869.pdf&quot;&gt;ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The ghOSt paper describes a system for implementing Linux scheduling policies in user space. Operating system scheduling is more complicated for data center workloads, as there are additional factors to consider when deciding what to run and when (like ensuring low latency for user queries). Previous research aims to take higher-level context about applications into consideration when making scheduling decisions, with dramatic positive results.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, custom schedulers can be difficult to implement, deploy, and maintain. &lt;a href=&quot;https://www.usenix.org/conference/nsdi19/presentation/kaffes&quot;&gt;Shinjuku&lt;/a&gt; is an example of a custom scheduler facing these problems - it is designed to reduce tail latency for data center applications, but requires tight coupling between an application and the scheduler. This tight coupling means that changes to the kernel could also unintentionally impact applications using the approach, potentially causing a brittle implementation with high ongoing maintenance costs.&lt;/p&gt;
+
+&lt;p&gt;ghOSt aims to address the problems faced by custom schedulers and those who implement them, while facilitating the dramatic performance and scalability gains workload-specific schedulers allow. The key to its approach is separating scheduling logic and the components that interact with the kernel. Custom schedulers, called &lt;em&gt;policies&lt;/em&gt;, are moved into user space.&lt;/p&gt;
+
+&lt;p&gt;In contrast, relatively stable code that interacts directly with the Linux kernel remains in kernel-space, and exposes an API for the user-space schedulers to interact with. This split approach means that custom schedulers run just like any other application - as a result, they can be implemented in variety of languages, tested using existing infrastructure, and deployed a faster rate for a wider set of workloads.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The paper makes three main contributions: design and implementation of a system that allows custom scheduling logic to run in user space, implementations of several custom schedulers using the system, and evaluation of the architecture (including in a production setting).&lt;/p&gt;
+
+&lt;h2 id=&quot;challenges-and-design-goals&quot;&gt;Challenges and Design Goals&lt;/h2&gt;
+
+&lt;p&gt;The paper identifies five challenges to implementing custom schedulers:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Implementing schedulers is hard&lt;/em&gt; because of the constraints posed on kernel code, like restrictions on languages and debug tooling.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Deploying schedulers is even harder&lt;/em&gt; because upgrading a kernel requires a time-consuming multi-step process of shifting workloads and rebooting the machine. The potential for kernel upgrades to introduce performance regressions make the process more difficult.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Custom schedulers must schedule kernel-level threads&lt;/em&gt;, not user-level threads - scheduling user-level threads on top of kernel-level threads does not guarantee that the associated kernel-level threads are actually run.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Custom schedulers tailored to specific workloads pose their own challenges&lt;/em&gt; because they do not adapt well to different use cases (not to mention their internals are complex and potentially not shared across multiple schedulers).&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Existing custom scheduling techniques are not sufficient&lt;/em&gt;, in particular Berkeley Packet Filter (BPF). While BPF programs are amazingly cool, they run synchronously and block the CPU - non-ideal from a performance perspective.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These challenges translate into four design goals for the system:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Custom scheduling logic should be easy to implement and test&lt;/em&gt;: separating scheduling logic from the kernel simplifies development and testing.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;It should be possible to easily create scheduling logic for many different use cases&lt;/em&gt;: unlike previous specialized schedulers built into the kernel, &lt;em&gt;ghOSt&lt;/em&gt; aims to be a generic platform that schedulers can be built on top of.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Scheduling should be able to operate across multiple CPUs&lt;/em&gt;: existing Linux schedulers make per-CPU scheduling decisions and it is difficult to execute scheduling decisions over a set of CPUs to optimize for other properties, like tail latency.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Non-disruptive updates and fault isolation&lt;/em&gt;: it should be easy to deploy scheduling logic like one would with other tasks running on a machine, allowing updates without requiring a reboot. Furthermore, failures or regressions in scheduling policies should not crash the whole machine.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;design-and-implementation&quot;&gt;Design and Implementation&lt;/h2&gt;
+
+&lt;p&gt;To achieve the goals of the system, ghOSt introduces &lt;em&gt;policies&lt;/em&gt; (custom scheduling logic). &lt;em&gt;Policies&lt;/em&gt; are executed in user-space and associated scheduling decisions are communicated to the kernel.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/arch.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Policies (and their scheduling decisions) propagate over three main components running across kernel and user space:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The &lt;em&gt;ghOSt scheduling class&lt;/em&gt; runs inside of the Linux kernel and provides a syscall interface that other components use to communicate scheduling decisions.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Agents&lt;/em&gt; run &lt;em&gt;policies&lt;/em&gt; (custom scheduling logic) in user-space, and make scheduling decisions that they communicate to the &lt;em&gt;ghOSt scheduling class&lt;/em&gt; running in kernel-space.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Enclaves&lt;/em&gt; are groups of &lt;em&gt;agents&lt;/em&gt;. Each &lt;em&gt;enclave&lt;/em&gt; has a primary agent that makes the scheduling decisions. Assigning multiple &lt;em&gt;agents&lt;/em&gt; to an enclave provides redundancy in the case of the primary agent failing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/enclaves.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;communication&quot;&gt;Communication&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;ghOSt&lt;/em&gt; components running in kernel or user-space need a way to provide information and feedback to each other. The paper discusses the two primary communication flows: &lt;em&gt;kernel-to-agent&lt;/em&gt; and &lt;em&gt;agent-to-kernel&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/messages.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the &lt;em&gt;kernel-to-agent&lt;/em&gt; flow, the &lt;em&gt;kernel&lt;/em&gt; communicates to &lt;em&gt;agents&lt;/em&gt; using messages and message queues. The kernel sends messages on queues when events happen in the kernel that could impact scheduling decisions. Each CPU has an associated queue, and each queue is associated with an enclave. While there are several existing queue approaches (including &lt;a href=&quot;https://lwn.net/Articles/810414/&quot;&gt;io_uring&lt;/a&gt; or &lt;a href=&quot;https://nakryiko.com/posts/bpf-ringbuf/&quot;&gt;BPF ring buffers&lt;/a&gt;), not all kernel versions support them - the authors argue that this makes ghOSt’s queue abstraction necessary.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;em&gt;agent-to-kernel&lt;/em&gt; direction, the &lt;em&gt;agent&lt;/em&gt; communicates by making system calls to communicate scheduling decisions and to perform management operations on the shared queue. To send scheduling decisions, the &lt;em&gt;agent&lt;/em&gt; creates and commits transactions (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXN_CREATE()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXNS_COMMIT()&lt;/code&gt;). Transactions are important because they allow a policy to make scheduling decisions across a range of CPUs, ensuring all or none succeed, while batching scheduling information - batching is critical because it limits the number of interrupts that impact the to-be-scheduled CPUs (as the kernel component of ghOSt needs to respond to agent transactions).&lt;/p&gt;
+
+&lt;p&gt;Lastly, there is a challenge to both &lt;em&gt;kernel-to-agent&lt;/em&gt; and &lt;em&gt;agent-to-kernel&lt;/em&gt; communication: keeping up to date with the state of the system. The kernel needs to ensure that it doesn’t execute out of date scheduling decisions, and the agent need to make sure that it doesn’t make scheduling decisions based on an old state of the world. The key piece of information used to track state is a &lt;em&gt;sequence number&lt;/em&gt; that exists for every agent.&lt;/p&gt;
+
+&lt;p&gt;In &lt;em&gt;kernel-to-agent&lt;/em&gt; commmunication, the kernel provides the &lt;em&gt;sequence number&lt;/em&gt; to agents in each message, and in a shared memory region. The sequence number in shared memory is updated by the kernel whenever it publishes a new message. The agent consumes the &lt;em&gt;sequence number&lt;/em&gt; from shared memory when reading messages from the queue, comparing the value to the &lt;em&gt;sequence number&lt;/em&gt; in shared memory. When the sequence number from consumed messages matches the value in shared memory, the agent knows it has read an up to date state.&lt;/p&gt;
+
+&lt;p&gt;In &lt;em&gt;agent-to-kernel&lt;/em&gt; communication, the agent includes the &lt;em&gt;sequence number&lt;/em&gt; when sending scheduling decisions (via transactions) to the kernel. The kernel compares the &lt;em&gt;sequence number&lt;/em&gt; from the agent’s transaction with the most recent sequence number the kernel is aware of. If the transaction’s sequence number is too old, the kernel doesn’t execute the scheduling decision.&lt;/p&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;p&gt;To evaluate ghOSt, the paper considers the overheads associated with the system, compares ghOSt to previous custom scheduler implementations, and evaluates the system in production.&lt;/p&gt;
+
+&lt;h3 id=&quot;ghost-overhead&quot;&gt;ghOSt overhead&lt;/h3&gt;
+
+&lt;p&gt;To evaluate the overheads of the system, the paper includes microbenchmarks that show the time spent in the different parts of the scheduling system, showing that it is competitive.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/microbenchmark.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;The paper also determines the performance of a global scheduler (that schedules all cores on a system) implemented with ghOSt - previous research shows the potential advantage of this approach as the scheduler has more complete knowledge of the system. The evaluation shows that ghOSt is able to scale to millions of transactions, even when responsible for many CPUs.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/global.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;comparison-to-existing-systems&quot;&gt;Comparison to existing systems&lt;/h3&gt;
+
+&lt;p&gt;Next, the paper compares ghOSt to Shinjuku, an example of a custom scheduling system tailored to reduce tail latency. The goal of this evaluation is to see whether &lt;em&gt;ghOSt&lt;/em&gt; performs similarly to a custom scheduler (which theoretically could achieve higher performance by using tailored optimization techniques). Shinjuku has a number of differences from &lt;em&gt;ghOSt&lt;/em&gt; - it uses dedicated resources (spinning threads that consume all of a CPU or set of CPUs), is constrained to a physical set of cores, and takes advantage of virtualization features to increase performance (like &lt;a href=&quot;https://xenbits.xen.org/docs/4.9-testing/misc/vtd-pi.txt&quot;&gt;posted interrupts&lt;/a&gt;). The authors also port the Shinjuku scheduling policy itself so that it is compatible with ghOSt.&lt;/p&gt;
+
+&lt;p&gt;The two systems run a generated workload, “in which each request includes a GET query to an in-memory RocksDB key-value store and performs a small amount of processing”.&lt;/p&gt;
+
+&lt;p&gt;The results indicate:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ghOSt is competitive with Shinjuku for 𝜇s-scale tail workloads, even though its Shinjuku policy is implemented in 82% fewer lines of code than the custom Shinjuku data plane system. ghOSt has slightly higher tail latencies than Shinjuku at high loads and is within 5% of Shinjuku’s saturation throughput.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/ghost/shinjuku.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;production-traces&quot;&gt;Production traces&lt;/h3&gt;
+
+&lt;p&gt;Lastly, the paper runs a production workload against ghOSt and compares the results to the same workload executed by machines using the completely fair scheduler (CFS).&lt;/p&gt;
+
+&lt;p&gt;The workload contains three query types (CPU and memory bound, IO and memory bound, and CPU-bound) - ghOSt is able to reduce tail-latency for the first two types of requests, but doesn’t have a huge impact for the third.&lt;/p&gt;
+
+&lt;p&gt;What stood out to me the most about this section is actually ghOSt’s impact on developer productivity:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;When developing a kernel scheduler, the write-test-write cycle includes (a) compiling a kernel (up to 15 minutes), (b) deploying the kernel (10-20 minutes), and (c) running the test (1 hour due to database initialization following a reboot). As a result, the enthusiastic kernel developer experiments with 5 variants per day. With ghOSt, compiling, deploying and launching the new agent is comfortably done within one minute.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The ghOSt paper builds on a body of previous research that demonstrates how critical scheduling is to the scalability and performance of datacenter workloads.  Scheduling is far from a solved problem, especially because of the “rise of the killer microsecond” and new device types - I’m looking forward to following along future work on the &lt;a href=&quot;https://github.com/google/ghost-userspace&quot;&gt;ghOSt open source project&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;As always, feel free to reach out on &lt;a href=&quot;https://twitter.com/micahlerner&quot;&gt;Twitter&lt;/a&gt; with feedback. Until next time.&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      
+
+      <title type="html">Kangaroo: Caching Billions of Tiny Objects on Flash</title>
+      <link href="http://www.micahlerner.com/2021/12/11/kangaroo-caching-billions-of-tiny-objects-on-flash.html" rel="alternate" type="text/html" title="Kangaroo: Caching Billions of Tiny Objects on Flash" />
+      <published>2021-12-11T00:00:00-08:00</published>
+      <updated>2021-12-11T00:00:00-08:00</updated>
+      <id>http://www.micahlerner.com/2021/12/11/kangaroo-caching-billions-of-tiny-objects-on-flash</id>
+      
+      
+        <content type="html" xml:base="http://www.micahlerner.com/2021/12/11/kangaroo-caching-billions-of-tiny-objects-on-flash.html">&lt;p&gt;&lt;em&gt;The papers over the next few weeks will be from &lt;a href=&quot;https://sosp2021.mpi-sws.org/&quot;&gt;SOSP&lt;/a&gt;. As always, feel free to reach out on &lt;a href=&quot;https://twitter.com/micahlerner&quot;&gt;Twitter&lt;/a&gt; with feedback or suggestions about papers to read! These paper reviews can &lt;a href=&quot;https://newsletter.micahlerner.com/&quot;&gt;be delivered weekly to your inbox&lt;/a&gt;, or you can subscribe to the &lt;a href=&quot;https://www.micahlerner.com/feed.xml&quot;&gt;Atom feed&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.1145/3477132.3483568&quot;&gt;Kangaroo: Caching Billions of Tiny Objects on Flash&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This week’s paper is &lt;em&gt;Kangaroo: Caching Billions of Tiny Objects on Flash&lt;/em&gt;, which won a best paper award at SOSP - the implementation also builds on the &lt;a href=&quot;https://www.cachelib.org&quot;&gt;CacheLib&lt;/a&gt; open source project. Kangaroo describes a two-level caching system that uses both flash and memory to cheaply and efficiently cache data at scale. Previous academic and industry research demonstrates significant cost savings (around a factor of 10!) from hybrid memory/flash caches, but doesn’t solve the unique issues faced by small object caches that store information like tweets, social graphs, or data from Internet of Things devices). Another unique property of Kangaroo is that it explicitly aims for different goals than those of persistent key-value stores (like Memcache, Redis, or RocksDB) - the system does not aim to be a persistent “source of truth” database, meaning that it has different constraints on how much data it stores and what is evicted from cache.&lt;/p&gt;
+
+&lt;p&gt;A key tradeoff faced by hybrid flash and memory caches is between cost and speed. This tradeoff manifests in whether caching systems store data in memory (DRAM) or on flash Solid State Drives. Storing cached data (and potentially the metadata about the cached data) in memory is expensive and fast. In contrast, flash storage is cheaper, but slower.&lt;/p&gt;
+
+&lt;p&gt;While some applications can tolerate increased latency from reading or writing to flash, the decision to use flash (instead of DRAM) is complicated by the limited number of writes that flash devices can tolerate before they wear out. This limit means that write-heavy workloads wear out flash storage faster, consuming more devices and reducing potential cost savings (as the additional flash devices aren’t free). To drive home the point about how important addressing this use case is, previous research to characterize cache clusters at Twitter noted that around 30% are write heavy!&lt;/p&gt;
+
+&lt;p&gt;Kangaroo seeks to address the aforementioned tradeoff by synthesizing previously distinct design ideas for cache systems, along with several techniques for increasing cache hit rate. When tested in a production-like environment relative to an existing caching system at Facebook, Kangaroo reduces flash writes by ~40%.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-the-papers-contributions&quot;&gt;What are the paper’s contributions?&lt;/h2&gt;
+
+&lt;p&gt;The paper makes three main contributions: characterization of the unique issues faced by small-object caches, a design and implementation of a cache that addresses these issues, and an evaluation of the system (one component of which involves production traces from Twitter and Facebook).&lt;/p&gt;
+
+&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
+
+&lt;p&gt;Kangaroo aims to make optimal use of limited memory, while at the same time limiting writes to flash - the paper notes prior “flash-cache designs either use too much DRAM or write flash too much.”&lt;/p&gt;
+
+&lt;p&gt;Importantly, the paper differentiates how it is addressing a different, but related, problem from other key value systems like Redis, Memcache, or RocksDB. In particular, Kangaroo makes different assumptions - “key-value stores generally assume that deletion is rare and that stored values must be kept until told otherwise. In contrast, caches delete items frequently and at their own discretion (i.e., every time an item is evicted)”. In other words, the design for Kangaroo is not intended to be a database-like key-value store that stores data persistently.&lt;/p&gt;
+
+&lt;h3 id=&quot;differences-from-key-value-systems&quot;&gt;Differences from key-value systems&lt;/h3&gt;
+
+&lt;p&gt;The paper cites two problems that traditional key-value systems don’t handle well when the cache has frequent churn: &lt;em&gt;write amplification&lt;/em&gt; and &lt;em&gt;lower effective capacity&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Write amplification&lt;/em&gt; is the phenomenon “where the actual amount of information physically written to the storage media is a multiple of the logical amount intended to be written”.&lt;/p&gt;
+
+&lt;p&gt;The paper notes two types of write amplification:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;em&gt;Device-level write amplification (DLWA)&lt;/em&gt; is caused by differences between what applications instruct the storage device to write and what the device actually writes.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;Application-level write amplification (ALWA)&lt;/em&gt; happens when an application intends to update a small amount of data in flash, but writes a larger amount of data to do so. This effect happens because flash drives are organized into blocks that must be updated as a whole. As an example, if a block of flash storage contains five items, and the application only wants to update one of them, the application must perform a read of all five items in the block, replace the old copy of an item with the updated version, then write back the updated set of all five items.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The other problem that key-value stores encounter under write-heavy workloads is &lt;em&gt;lower effective capacity&lt;/em&gt;. Specifically, this impacts key-value stores that store data in flash. RocksDB is one example - it keeps track of key-value data using a log that is periodically cleaned up through a process called compaction. If RocksDB receives many writes, a fixed size disk will use more of its space to track changes to keys, instead of using space to track a larger set of keys.&lt;/p&gt;
+
+&lt;h3 id=&quot;existing-designs&quot;&gt;Existing designs&lt;/h3&gt;
+
+&lt;p&gt;There are two cache designs that the system aims to build on: &lt;em&gt;log structured caches&lt;/em&gt; and &lt;em&gt;set-associative caches&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Log structured caches&lt;/em&gt; store cached entries in a log. Production usage of the approach includes CDNs and Facebook’s image caching service. To allow fast lookups into the cache (and prevent sequential scans of the cached data), many implementations create in memory indexes tracking the location of entries. These memory indexes poses a challenge when storing many small items, as:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The per-object overhead differs across existing systems between 8B and 100B. For a system with a median object size of 100B … this means that 80GB - 1TB of DRAM is needed to index objects on a 1TB flash drive.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;Set associative caches&lt;/em&gt;, in contrast to &lt;em&gt;log structured caches&lt;/em&gt;, do not have analagous in-memory indexes. Instead, the key associated with an object is used during lookup to find a set of items on flash storage. Unfortunately, &lt;em&gt;set associative caches&lt;/em&gt; don’t perform well for writes, as changing the set associated with a key involves reading the whole set, updating the set, then writing the whole set back to flash (incurring &lt;em&gt;application level write amplification&lt;/em&gt;, as mentioned earlier).&lt;/p&gt;
+
+&lt;h3 id=&quot;design&quot;&gt;Design&lt;/h3&gt;
+
+&lt;p&gt;The Kangaroo system has three main components:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A small &lt;em&gt;DRAM Cache&lt;/em&gt;, which stores a subset of recently written keys.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;KLog&lt;/em&gt; which has 1) a buffer of cached data on flash and 2) an in-memory index into the buffer for fast lookups, similar to log structured cache systems.&lt;/li&gt;
+  &lt;li&gt;
+&lt;em&gt;KSet&lt;/em&gt; which stores a set of objects in pages on flash, as well as a Bloom filter used to track how set membership, similar to set-associative caches.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/sys.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;system-operations&quot;&gt;System Operations&lt;/h2&gt;
+
+&lt;p&gt;Kangaroo uses the three components to implement two high-level operations: &lt;em&gt;lookup&lt;/em&gt; and &lt;em&gt;insert&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/ops.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;lookups&quot;&gt;Lookups&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Lookups&lt;/em&gt; get the value of a key if it is stored in the cache. This process occur in three main steps (corresponding to the three main components of the design).&lt;/p&gt;
+
+&lt;p&gt;First, check the &lt;em&gt;DRAM cache&lt;/em&gt;. On a cache hit, return the value and on a cache miss, continue on to check the KLog.&lt;/p&gt;
+
+&lt;p&gt;If the key is not in the &lt;em&gt;DRAM Cache&lt;/em&gt;, check the &lt;em&gt;KLog&lt;/em&gt; in-memory index for the key to see whether the key is in flash, reading the value from flash on cache hit or continuing to check KSet on cache miss.&lt;/p&gt;
+
+&lt;p&gt;On &lt;em&gt;KLog&lt;/em&gt; miss, hash the key used in the lookup to determine the associated &lt;em&gt;KSet&lt;/em&gt; for the key. Then, read the per-set in-memory Bloom filter for the associated &lt;em&gt;KSet&lt;/em&gt; to determine whether data for the key is likely to exist on flash - if the item is on flash, read the associated set, scan for the item until it is found, and return the data.&lt;/p&gt;
+
+&lt;h3 id=&quot;inserts&quot;&gt;Inserts&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Inserts&lt;/em&gt; add a new value to the cache (again in three steps that correspond to the three components of the system).&lt;/p&gt;
+
+&lt;p&gt;First, write new items to the &lt;em&gt;DRAM cache&lt;/em&gt;. If the &lt;em&gt;DRAM Cache&lt;/em&gt; is at capacity, some items will be evicted and potentially pushed to the KLog. Kangaroo doesn’t add all items evicted from the &lt;em&gt;DRAM Cache&lt;/em&gt; to the &lt;em&gt;KLog&lt;/em&gt;, as making this shift can incur writes to flash (part of what the system wants to prevent). The algorithm for deciding what is shifted is covered in the next section.&lt;/p&gt;
+
+&lt;p&gt;If Kangaroo chooses to admit the items evicted from the &lt;em&gt;DRAM Cache&lt;/em&gt; to the &lt;em&gt;KLog&lt;/em&gt;, the system updates the &lt;em&gt;KLog&lt;/em&gt; in-memory index and writes the entry to flash&lt;/p&gt;
+
+&lt;p&gt;Writing an item to &lt;em&gt;KLog&lt;/em&gt; has the potential to cause evictions from the &lt;em&gt;KLog&lt;/em&gt; itself. Items evicted from the &lt;em&gt;KLog&lt;/em&gt; are potentially inserted into an associated KSet, although this action depends on an algorithm similar to the one earlier (which decides whether to admit items evicted from the &lt;em&gt;DRAM Cache&lt;/em&gt; to the &lt;em&gt;KLog&lt;/em&gt;). If items evicted from the &lt;em&gt;KLog&lt;/em&gt; are chosen to be inserted into a associated &lt;em&gt;KSet&lt;/em&gt;, &lt;em&gt;all&lt;/em&gt; items both currently in the &lt;em&gt;KLog&lt;/em&gt; and associated with the to-be-written &lt;em&gt;KSet&lt;/em&gt; are shifted to the &lt;em&gt;KSet&lt;/em&gt; - “doing this amortizes flash writes in KSet, significantly reducing Kangaroo’s [application-level write amplification]”.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;The implementation of Kangaroo couples &lt;em&gt;a DRAM Cache&lt;/em&gt;, &lt;em&gt;KLog&lt;/em&gt;, and &lt;em&gt;KSet&lt;/em&gt; with three key ideas: &lt;em&gt;admission policies&lt;/em&gt;, &lt;em&gt;partitioning of the KLog&lt;/em&gt;, and &lt;em&gt;usage-based eviction&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;As mentioned earlier, items from the &lt;em&gt;DRAM Cache&lt;/em&gt; and &lt;em&gt;KLog&lt;/em&gt; are not guaranteed to be inserted into the next component in the system. The decision whether to propagate an item is decided by a tunable &lt;em&gt;admission policy&lt;/em&gt; that targets a certain level of writes to flash. The &lt;em&gt;admission policy&lt;/em&gt; for DRAM Cache to KLog transitions is probabilistic (some percent of objects are rejected), while the policy controlling the KLog to KSet transition is based on the number of items currently in the &lt;em&gt;KLog&lt;/em&gt; mapping to the candidate &lt;em&gt;KSet&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, &lt;em&gt;partitioning the KLog&lt;/em&gt; reduces “reduces the per-object metadata from 190 b to 48 b per object, a 3.96× savings vs. the naïve design.” This savings comes from changes to the pointers used in traversing the index. One example is an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;offset&lt;/code&gt; field that maps an object to the page of flash it is stored in:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The flash offset must be large enough to identify which page in the flash log contains the object, which requires log2(𝐿𝑜𝑔𝑆𝑖𝑧𝑒/4 KB) bits. By splitting the log into 64 partitions, KLog reduces 𝐿𝑜𝑔𝑆𝑖𝑧𝑒 by 64× and saves 6 b in the pointer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/partitions.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lastly, &lt;em&gt;usage-based eviction&lt;/em&gt; ensures infrequently-used items are evicted from the cache and is normally based on usage metadata - given fixed resources, these types of policies can increase cache hit ratio by ensuring that frequently accessed items stay in cache longer. To implement the idea while using minimal memory, Kangaroo adapts a technique from processor caches called &lt;em&gt;Re-Reference Interval Prediction (RRIP)&lt;/em&gt;, (calling its adaptation &lt;em&gt;RRIParoo&lt;/em&gt;):&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;RRIP is essentially a multi-bit clock algorithm: RRIP associates a small number of bits with each object (3 bits in Kangaroo), which represent reuse predictions from near reuse (000) to far reuse (111). Objects are evicted only once they reach far. If there are no far objects when something must be evicted, all objects’ predictions are incremented until at least one is at far.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;RRIParoo&lt;/em&gt; tracks how long ago an item was read as well as whether it was read. For items in KLog, information about how long ago an item was read is stored using three bits in the in-memory index.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/rrip.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;In contrast, usage data for items in KSet is stored in flash (as KSet doesn’t have an in-memory index). Each KSet also has a bitset with one bit for every item in the KSet that tracks tracks whether an item was accessed - this set of single-bit usage data can be used to “reset” the timer for an item.&lt;/p&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;p&gt;To evaluate Kangaroo, the paper compares the system’s cache miss ratio rate against other cache systems and deploys it with a dark launch to production.&lt;/p&gt;
+
+&lt;p&gt;Kangaroo is compared to a CacheLib deployment designed for small objects, and to a log-structured cache with a DRAM index. All three systems run on the same resources, but Kangaroo achieves the lowest cache miss ratio - this, “is because Kangaroo makes effective use of both limited DRAM and flash writes, whereas prior designs are hampered by one or the other.”&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/miss.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Kangaroo was dark launched to production inside of Facebook and compared with an existing small object cache - Kangaroo reduces flash writes and reduces cache misses. Notably, the Kangaroo configuration that allows all writes performs the best of the set, demonstrating the potential for operators to make the tradeoff between flash writes and cache miss ratio (more flash writes would be costlier, but seem to reduce the cache miss ratio).&lt;/p&gt;
+
+&lt;figure&gt;&lt;img class=&quot;maincolumn-img&quot; src=&quot;/assets/kangaroo/prod.png&quot;&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The Kangaroo paper demonstrates a unique synthesis of several threads of research, and the tradeoffs caching systems at scale make between cost and speed were interesting to read. As storage continues to improve (both in cost and performance), I’m sure we will see more research into caching systems at scale!&lt;/p&gt;
+
+&lt;p&gt;As always, feel free to reach out on &lt;a href=&quot;https://twitter.com/micahlerner&quot;&gt;Twitter&lt;/a&gt; with feedback. Until next time.&lt;/p&gt;</content>
+      
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Micah</name>
+        
+        
+      </author>
+
+      
+        
+      
+
+      
+
+      
+        <summary type="html">The papers over the next few weeks will be from SOSP. As always, feel free to reach out on Twitter with feedback or suggestions about papers to read! These paper reviews can be delivered weekly to your inbox, or you can subscribe to the Atom feed.</summary>
+      
+
+      
+      
+    </entry>
+  
 </feed>
